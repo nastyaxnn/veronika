@@ -1,0 +1,943 @@
+
+2 rabota.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000618  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000014  00800060  00000618  000006ac  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000001c  00800074  00800074  000006c0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000006c0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000006f0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000068  00000000  00000000  0000072c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000940  00000000  00000000  00000794  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000617  00000000  00000000  000010d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000005df  00000000  00000000  000016eb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000108  00000000  00000000  00001ccc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000004c8  00000000  00000000  00001dd4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000243  00000000  00000000  0000229c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000058  00000000  00000000  000024df  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	6e c2       	rjmp	.+1244   	; 0x4ee <__vector_8>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e8 e1       	ldi	r30, 0x18	; 24
+  3a:	f6 e0       	ldi	r31, 0x06	; 6
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a4 37       	cpi	r26, 0x74	; 116
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	a4 e7       	ldi	r26, 0x74	; 116
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a0 39       	cpi	r26, 0x90	; 144
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	27 d2       	rcall	.+1102   	; 0x4a8 <main>
+  5a:	dc c2       	rjmp	.+1464   	; 0x614 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <_Z8initPortv>:
+	}
+}
+
+void initPort()
+{
+	DDRD = 0xFF;
+  5e:	8f ef       	ldi	r24, 0xFF	; 255
+  60:	81 bb       	out	0x11, r24	; 17
+	PORTD = 0xFF;
+  62:	82 bb       	out	0x12, r24	; 18
+	DDRB = 0b00000111;
+  64:	87 e0       	ldi	r24, 0x07	; 7
+  66:	87 bb       	out	0x17, r24	; 23
+	PORTB = 0b01110000;
+  68:	80 e7       	ldi	r24, 0x70	; 112
+  6a:	88 bb       	out	0x18, r24	; 24
+  6c:	08 95       	ret
+
+0000006e <_Z10initTimer1v>:
+}
+
+// Timer1
+void initTimer1()
+{
+	TCCR1B = (1 << CS11);
+  6e:	82 e0       	ldi	r24, 0x02	; 2
+  70:	8e bd       	out	0x2e, r24	; 46
+	TIMSK |= (1 << TOIE1);
+  72:	89 b7       	in	r24, 0x39	; 57
+  74:	84 60       	ori	r24, 0x04	; 4
+  76:	89 bf       	out	0x39, r24	; 57
+	TCNT1 = 64536;
+  78:	88 e1       	ldi	r24, 0x18	; 24
+  7a:	9c ef       	ldi	r25, 0xFC	; 252
+  7c:	9d bd       	out	0x2d, r25	; 45
+  7e:	8c bd       	out	0x2c, r24	; 44
+	sei();
+  80:	78 94       	sei
+  82:	08 95       	ret
+
+00000084 <_Z13handleButtonsv>:
+	static int revPrev = 1;
+	static int modePrev = 1;
+	static int countPrev = 1;
+	
+	// Reverse
+	if (!(PINB & (1 << PB4))) {
+  84:	b4 99       	sbic	0x16, 4	; 22
+  86:	22 c0       	rjmp	.+68     	; 0xcc <_Z13handleButtonsv+0x48>
+		if (revPrev) {
+  88:	80 91 64 00 	lds	r24, 0x0064	; 0x800064 <_ZZ13handleButtonsvE7revPrev>
+  8c:	90 91 65 00 	lds	r25, 0x0065	; 0x800065 <_ZZ13handleButtonsvE7revPrev+0x1>
+  90:	89 2b       	or	r24, r25
+  92:	11 f1       	breq	.+68     	; 0xd8 <_Z13handleButtonsv+0x54>
+			reverse = !reverse;
+  94:	81 e0       	ldi	r24, 0x01	; 1
+  96:	90 e0       	ldi	r25, 0x00	; 0
+  98:	20 91 82 00 	lds	r18, 0x0082	; 0x800082 <_ZL7reverse>
+  9c:	30 91 83 00 	lds	r19, 0x0083	; 0x800083 <_ZL7reverse+0x1>
+  a0:	23 2b       	or	r18, r19
+  a2:	11 f0       	breq	.+4      	; 0xa8 <_Z13handleButtonsv+0x24>
+  a4:	80 e0       	ldi	r24, 0x00	; 0
+  a6:	90 e0       	ldi	r25, 0x00	; 0
+  a8:	90 93 83 00 	sts	0x0083, r25	; 0x800083 <_ZL7reverse+0x1>
+  ac:	80 93 82 00 	sts	0x0082, r24	; 0x800082 <_ZL7reverse>
+			revPrev = 0;
+  b0:	10 92 65 00 	sts	0x0065, r1	; 0x800065 <_ZZ13handleButtonsvE7revPrev+0x1>
+  b4:	10 92 64 00 	sts	0x0064, r1	; 0x800064 <_ZZ13handleButtonsvE7revPrev>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  b8:	2f e7       	ldi	r18, 0x7F	; 127
+  ba:	88 e3       	ldi	r24, 0x38	; 56
+  bc:	91 e0       	ldi	r25, 0x01	; 1
+  be:	21 50       	subi	r18, 0x01	; 1
+  c0:	80 40       	sbci	r24, 0x00	; 0
+  c2:	90 40       	sbci	r25, 0x00	; 0
+  c4:	e1 f7       	brne	.-8      	; 0xbe <_Z13handleButtonsv+0x3a>
+  c6:	00 c0       	rjmp	.+0      	; 0xc8 <_Z13handleButtonsv+0x44>
+  c8:	00 00       	nop
+  ca:	06 c0       	rjmp	.+12     	; 0xd8 <_Z13handleButtonsv+0x54>
+			_delay_ms(50);
+		}
+		} else {
+		revPrev = 1;
+  cc:	81 e0       	ldi	r24, 0x01	; 1
+  ce:	90 e0       	ldi	r25, 0x00	; 0
+  d0:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <_ZZ13handleButtonsvE7revPrev+0x1>
+  d4:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <_ZZ13handleButtonsvE7revPrev>
+	}
+	
+	// Mode
+	if (!(PINB & (1 << PB5))) {
+  d8:	b5 99       	sbic	0x16, 5	; 22
+  da:	3a c0       	rjmp	.+116    	; 0x150 <_Z13handleButtonsv+0xcc>
+		if (modePrev) {
+  dc:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <_ZZ13handleButtonsvE8modePrev>
+  e0:	90 91 63 00 	lds	r25, 0x0063	; 0x800063 <_ZZ13handleButtonsvE8modePrev+0x1>
+  e4:	89 2b       	or	r24, r25
+  e6:	d1 f1       	breq	.+116    	; 0x15c <_Z13handleButtonsv+0xd8>
+			mode = !mode;
+  e8:	81 e0       	ldi	r24, 0x01	; 1
+  ea:	90 e0       	ldi	r25, 0x00	; 0
+  ec:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <_ZL4mode>
+  f0:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <_ZL4mode+0x1>
+  f4:	23 2b       	or	r18, r19
+  f6:	11 f0       	breq	.+4      	; 0xfc <_Z13handleButtonsv+0x78>
+  f8:	80 e0       	ldi	r24, 0x00	; 0
+  fa:	90 e0       	ldi	r25, 0x00	; 0
+  fc:	90 93 85 00 	sts	0x0085, r25	; 0x800085 <_ZL4mode+0x1>
+ 100:	80 93 84 00 	sts	0x0084, r24	; 0x800084 <_ZL4mode>
+			
+			// смена режима
+			if (mode == 1) {
+ 104:	01 97       	sbiw	r24, 0x01	; 1
+ 106:	b1 f4       	brne	.+44     	; 0x134 <_Z13handleButtonsv+0xb0>
+				setting21 = 1;
+ 108:	81 e0       	ldi	r24, 0x01	; 1
+ 10a:	90 e0       	ldi	r25, 0x00	; 0
+ 10c:	90 93 67 00 	sts	0x0067, r25	; 0x800067 <_ZL9setting21+0x1>
+ 110:	80 93 66 00 	sts	0x0066, r24	; 0x800066 <_ZL9setting21>
+				counting21 = 0;
+ 114:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <_ZL10counting21+0x1>
+ 118:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <_ZL10counting21>
+				current21 = startNum;
+ 11c:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 120:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 124:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <_ZL9current21+0x1>
+ 128:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <_ZL9current21>
+				sum21 = startNum;
+ 12c:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <_ZL5sum21+0x1>
+ 130:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <_ZL5sum21>
+			}
+			
+			modePrev = 0;
+ 134:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <_ZZ13handleButtonsvE8modePrev+0x1>
+ 138:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <_ZZ13handleButtonsvE8modePrev>
+ 13c:	2f e7       	ldi	r18, 0x7F	; 127
+ 13e:	88 e3       	ldi	r24, 0x38	; 56
+ 140:	91 e0       	ldi	r25, 0x01	; 1
+ 142:	21 50       	subi	r18, 0x01	; 1
+ 144:	80 40       	sbci	r24, 0x00	; 0
+ 146:	90 40       	sbci	r25, 0x00	; 0
+ 148:	e1 f7       	brne	.-8      	; 0x142 <_Z13handleButtonsv+0xbe>
+ 14a:	00 c0       	rjmp	.+0      	; 0x14c <_Z13handleButtonsv+0xc8>
+ 14c:	00 00       	nop
+ 14e:	06 c0       	rjmp	.+12     	; 0x15c <_Z13handleButtonsv+0xd8>
+			_delay_ms(50);
+		}
+		} else {
+		modePrev = 1;
+ 150:	81 e0       	ldi	r24, 0x01	; 1
+ 152:	90 e0       	ldi	r25, 0x00	; 0
+ 154:	90 93 63 00 	sts	0x0063, r25	; 0x800063 <_ZZ13handleButtonsvE8modePrev+0x1>
+ 158:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <_ZZ13handleButtonsvE8modePrev>
+	}
+	
+	// Count
+	if (!(PINB & (1 << PB6))) {
+ 15c:	b6 99       	sbic	0x16, 6	; 22
+ 15e:	54 c0       	rjmp	.+168    	; 0x208 <__EEPROM_REGION_LENGTH__+0x8>
+		if (countPrev) {
+ 160:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 164:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 168:	89 2b       	or	r24, r25
+ 16a:	09 f4       	brne	.+2      	; 0x16e <_Z13handleButtonsv+0xea>
+ 16c:	53 c0       	rjmp	.+166    	; 0x214 <__EEPROM_REGION_LENGTH__+0x14>
+			if (mode == 1) {  // Только в режиме 21 варианта
+ 16e:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <_ZL4mode>
+ 172:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <_ZL4mode+0x1>
+ 176:	01 97       	sbiw	r24, 0x01	; 1
+ 178:	c9 f5       	brne	.+114    	; 0x1ec <_Z13handleButtonsv+0x168>
+				if (setting21) {
+ 17a:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <_ZL9setting21>
+ 17e:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <_ZL9setting21+0x1>
+ 182:	89 2b       	or	r24, r25
+ 184:	b9 f0       	breq	.+46     	; 0x1b4 <_Z13handleButtonsv+0x130>
+					// Завершаем установку, начинаем счет
+					setting21 = 0;
+ 186:	10 92 67 00 	sts	0x0067, r1	; 0x800067 <_ZL9setting21+0x1>
+ 18a:	10 92 66 00 	sts	0x0066, r1	; 0x800066 <_ZL9setting21>
+					counting21 = 1;
+ 18e:	81 e0       	ldi	r24, 0x01	; 1
+ 190:	90 e0       	ldi	r25, 0x00	; 0
+ 192:	90 93 81 00 	sts	0x0081, r25	; 0x800081 <_ZL10counting21+0x1>
+ 196:	80 93 80 00 	sts	0x0080, r24	; 0x800080 <_ZL10counting21>
+					current21 = startNum;
+ 19a:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 19e:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 1a2:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <_ZL9current21+0x1>
+ 1a6:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <_ZL9current21>
+					sum21 = startNum;
+ 1aa:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <_ZL5sum21+0x1>
+ 1ae:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <_ZL5sum21>
+ 1b2:	1c c0       	rjmp	.+56     	; 0x1ec <_Z13handleButtonsv+0x168>
+					} else {
+					// Старт/стоп счета
+					counting21 = !counting21;
+ 1b4:	81 e0       	ldi	r24, 0x01	; 1
+ 1b6:	90 e0       	ldi	r25, 0x00	; 0
+ 1b8:	20 91 80 00 	lds	r18, 0x0080	; 0x800080 <_ZL10counting21>
+ 1bc:	30 91 81 00 	lds	r19, 0x0081	; 0x800081 <_ZL10counting21+0x1>
+ 1c0:	23 2b       	or	r18, r19
+ 1c2:	11 f0       	breq	.+4      	; 0x1c8 <_Z13handleButtonsv+0x144>
+ 1c4:	80 e0       	ldi	r24, 0x00	; 0
+ 1c6:	90 e0       	ldi	r25, 0x00	; 0
+ 1c8:	90 93 81 00 	sts	0x0081, r25	; 0x800081 <_ZL10counting21+0x1>
+ 1cc:	80 93 80 00 	sts	0x0080, r24	; 0x800080 <_ZL10counting21>
+					if (counting21) {
+ 1d0:	89 2b       	or	r24, r25
+ 1d2:	61 f0       	breq	.+24     	; 0x1ec <_Z13handleButtonsv+0x168>
+						current21 = startNum;
+ 1d4:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 1d8:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 1dc:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <_ZL9current21+0x1>
+ 1e0:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <_ZL9current21>
+						sum21 = startNum;
+ 1e4:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <_ZL5sum21+0x1>
+ 1e8:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <_ZL5sum21>
+					}
+				}
+			}
+			countPrev = 0;
+ 1ec:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1f0:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 1f4:	2f e7       	ldi	r18, 0x7F	; 127
+ 1f6:	88 e3       	ldi	r24, 0x38	; 56
+ 1f8:	91 e0       	ldi	r25, 0x01	; 1
+ 1fa:	21 50       	subi	r18, 0x01	; 1
+ 1fc:	80 40       	sbci	r24, 0x00	; 0
+ 1fe:	90 40       	sbci	r25, 0x00	; 0
+ 200:	e1 f7       	brne	.-8      	; 0x1fa <_Z13handleButtonsv+0x176>
+ 202:	00 c0       	rjmp	.+0      	; 0x204 <__EEPROM_REGION_LENGTH__+0x4>
+ 204:	00 00       	nop
+ 206:	08 95       	ret
+			_delay_ms(50);
+		}
+		} else {
+		countPrev = 1;
+ 208:	81 e0       	ldi	r24, 0x01	; 1
+ 20a:	90 e0       	ldi	r25, 0x00	; 0
+ 20c:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 210:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 214:	08 95       	ret
+
+00000216 <_Z14handleMainModev>:
+
+// счет 0-111
+void handleMainMode()
+{
+	static int counter = 0;
+	counter++;
+ 216:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <_ZZ14handleMainModevE7counter>
+ 21a:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <_ZZ14handleMainModevE7counter+0x1>
+ 21e:	01 96       	adiw	r24, 0x01	; 1
+ 220:	90 93 79 00 	sts	0x0079, r25	; 0x800079 <_ZZ14handleMainModevE7counter+0x1>
+ 224:	80 93 78 00 	sts	0x0078, r24	; 0x800078 <_ZZ14handleMainModevE7counter>
+	
+	if (counter >= 10) {  // 0.5 сек
+ 228:	0a 97       	sbiw	r24, 0x0a	; 10
+ 22a:	64 f1       	brlt	.+88     	; 0x284 <_Z14handleMainModev+0x6e>
+		counter = 0;
+ 22c:	10 92 79 00 	sts	0x0079, r1	; 0x800079 <_ZZ14handleMainModevE7counter+0x1>
+ 230:	10 92 78 00 	sts	0x0078, r1	; 0x800078 <_ZZ14handleMainModevE7counter>
+		
+		if (reverse == 0) {
+ 234:	80 91 82 00 	lds	r24, 0x0082	; 0x800082 <_ZL7reverse>
+ 238:	90 91 83 00 	lds	r25, 0x0083	; 0x800083 <_ZL7reverse+0x1>
+ 23c:	89 2b       	or	r24, r25
+ 23e:	89 f4       	brne	.+34     	; 0x262 <_Z14handleMainModev+0x4c>
+			num++;
+ 240:	80 91 8e 00 	lds	r24, 0x008E	; 0x80008e <_ZL3num>
+ 244:	90 91 8f 00 	lds	r25, 0x008F	; 0x80008f <_ZL3num+0x1>
+ 248:	01 96       	adiw	r24, 0x01	; 1
+ 24a:	90 93 8f 00 	sts	0x008F, r25	; 0x80008f <_ZL3num+0x1>
+ 24e:	80 93 8e 00 	sts	0x008E, r24	; 0x80008e <_ZL3num>
+			if (num > 111) num = 0;
+ 252:	80 37       	cpi	r24, 0x70	; 112
+ 254:	91 05       	cpc	r25, r1
+ 256:	b4 f0       	brlt	.+44     	; 0x284 <_Z14handleMainModev+0x6e>
+ 258:	10 92 8f 00 	sts	0x008F, r1	; 0x80008f <_ZL3num+0x1>
+ 25c:	10 92 8e 00 	sts	0x008E, r1	; 0x80008e <_ZL3num>
+ 260:	08 95       	ret
+			} else {
+			num--;
+ 262:	80 91 8e 00 	lds	r24, 0x008E	; 0x80008e <_ZL3num>
+ 266:	90 91 8f 00 	lds	r25, 0x008F	; 0x80008f <_ZL3num+0x1>
+ 26a:	01 97       	sbiw	r24, 0x01	; 1
+ 26c:	90 93 8f 00 	sts	0x008F, r25	; 0x80008f <_ZL3num+0x1>
+ 270:	80 93 8e 00 	sts	0x008E, r24	; 0x80008e <_ZL3num>
+			if (num < 0) num = 111;
+ 274:	99 23       	and	r25, r25
+ 276:	34 f4       	brge	.+12     	; 0x284 <_Z14handleMainModev+0x6e>
+ 278:	8f e6       	ldi	r24, 0x6F	; 111
+ 27a:	90 e0       	ldi	r25, 0x00	; 0
+ 27c:	90 93 8f 00 	sts	0x008F, r25	; 0x80008f <_ZL3num+0x1>
+ 280:	80 93 8e 00 	sts	0x008E, r24	; 0x80008e <_ZL3num>
+ 284:	08 95       	ret
+
+00000286 <_Z15handleVariant21v>:
+{
+	static int changeDelay = 0;
+	static int countTimer = 0;
+	
+	// установка числа
+	if (setting21) {
+ 286:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <_ZL9setting21>
+ 28a:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <_ZL9setting21+0x1>
+ 28e:	89 2b       	or	r24, r25
+ 290:	09 f4       	brne	.+2      	; 0x294 <_Z15handleVariant21v+0xe>
+ 292:	49 c0       	rjmp	.+146    	; 0x326 <_Z15handleVariant21v+0xa0>
+		if (changeDelay == 0) {
+ 294:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <_ZZ15handleVariant21vE11changeDelay>
+ 298:	90 91 77 00 	lds	r25, 0x0077	; 0x800077 <_ZZ15handleVariant21vE11changeDelay+0x1>
+ 29c:	00 97       	sbiw	r24, 0x00	; 0
+ 29e:	89 f5       	brne	.+98     	; 0x302 <_Z15handleVariant21v+0x7c>
+			// увеличиваем число кнопкой Reverse
+			if (!(PINB & (1 << PB4))) {
+ 2a0:	b4 99       	sbic	0x16, 4	; 22
+ 2a2:	15 c0       	rjmp	.+42     	; 0x2ce <_Z15handleVariant21v+0x48>
+				startNum++;
+ 2a4:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 2a8:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 2ac:	01 96       	adiw	r24, 0x01	; 1
+ 2ae:	90 93 8d 00 	sts	0x008D, r25	; 0x80008d <_ZL8startNum+0x1>
+ 2b2:	80 93 8c 00 	sts	0x008C, r24	; 0x80008c <_ZL8startNum>
+				if (startNum > 12) startNum = 0;
+ 2b6:	0d 97       	sbiw	r24, 0x0d	; 13
+ 2b8:	24 f0       	brlt	.+8      	; 0x2c2 <_Z15handleVariant21v+0x3c>
+ 2ba:	10 92 8d 00 	sts	0x008D, r1	; 0x80008d <_ZL8startNum+0x1>
+ 2be:	10 92 8c 00 	sts	0x008C, r1	; 0x80008c <_ZL8startNum>
+				changeDelay = 10;
+ 2c2:	8a e0       	ldi	r24, 0x0A	; 10
+ 2c4:	90 e0       	ldi	r25, 0x00	; 0
+ 2c6:	90 93 77 00 	sts	0x0077, r25	; 0x800077 <_ZZ15handleVariant21vE11changeDelay+0x1>
+ 2ca:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <_ZZ15handleVariant21vE11changeDelay>
+			}
+			
+			if (!(PINB & (1 << PB6))) {
+ 2ce:	b6 99       	sbic	0x16, 6	; 22
+ 2d0:	1d c0       	rjmp	.+58     	; 0x30c <_Z15handleVariant21v+0x86>
+				startNum--;
+ 2d2:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 2d6:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 2da:	01 97       	sbiw	r24, 0x01	; 1
+ 2dc:	90 93 8d 00 	sts	0x008D, r25	; 0x80008d <_ZL8startNum+0x1>
+ 2e0:	80 93 8c 00 	sts	0x008C, r24	; 0x80008c <_ZL8startNum>
+				if (startNum < 0) startNum = 12;
+ 2e4:	99 23       	and	r25, r25
+ 2e6:	34 f4       	brge	.+12     	; 0x2f4 <_Z15handleVariant21v+0x6e>
+ 2e8:	8c e0       	ldi	r24, 0x0C	; 12
+ 2ea:	90 e0       	ldi	r25, 0x00	; 0
+ 2ec:	90 93 8d 00 	sts	0x008D, r25	; 0x80008d <_ZL8startNum+0x1>
+ 2f0:	80 93 8c 00 	sts	0x008C, r24	; 0x80008c <_ZL8startNum>
+				changeDelay = 10;
+ 2f4:	8a e0       	ldi	r24, 0x0A	; 10
+ 2f6:	90 e0       	ldi	r25, 0x00	; 0
+ 2f8:	90 93 77 00 	sts	0x0077, r25	; 0x800077 <_ZZ15handleVariant21vE11changeDelay+0x1>
+ 2fc:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <_ZZ15handleVariant21vE11changeDelay>
+ 300:	05 c0       	rjmp	.+10     	; 0x30c <_Z15handleVariant21v+0x86>
+			}
+			} else {
+			changeDelay--;
+ 302:	01 97       	sbiw	r24, 0x01	; 1
+ 304:	90 93 77 00 	sts	0x0077, r25	; 0x800077 <_ZZ15handleVariant21vE11changeDelay+0x1>
+ 308:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <_ZZ15handleVariant21vE11changeDelay>
+		}
+		
+		current21 = startNum;
+ 30c:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 310:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 314:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <_ZL9current21+0x1>
+ 318:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <_ZL9current21>
+		sum21 = startNum;
+ 31c:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <_ZL5sum21+0x1>
+ 320:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <_ZL5sum21>
+ 324:	08 95       	ret
+	}
+	// Режим счета
+	else if (counting21) {
+ 326:	80 91 80 00 	lds	r24, 0x0080	; 0x800080 <_ZL10counting21>
+ 32a:	90 91 81 00 	lds	r25, 0x0081	; 0x800081 <_ZL10counting21+0x1>
+ 32e:	89 2b       	or	r24, r25
+ 330:	09 f4       	brne	.+2      	; 0x334 <_Z15handleVariant21v+0xae>
+ 332:	4d c0       	rjmp	.+154    	; 0x3ce <_Z15handleVariant21v+0x148>
+		countTimer++;
+ 334:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <__data_end>
+ 338:	90 91 75 00 	lds	r25, 0x0075	; 0x800075 <__data_end+0x1>
+ 33c:	01 96       	adiw	r24, 0x01	; 1
+ 33e:	90 93 75 00 	sts	0x0075, r25	; 0x800075 <__data_end+0x1>
+ 342:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__data_end>
+		
+		if (countTimer >= 20) {
+ 346:	44 97       	sbiw	r24, 0x14	; 20
+ 348:	0c f4       	brge	.+2      	; 0x34c <_Z15handleVariant21v+0xc6>
+ 34a:	41 c0       	rjmp	.+130    	; 0x3ce <_Z15handleVariant21v+0x148>
+			countTimer = 0;
+ 34c:	10 92 75 00 	sts	0x0075, r1	; 0x800075 <__data_end+0x1>
+ 350:	10 92 74 00 	sts	0x0074, r1	; 0x800074 <__data_end>
+			
+			if (reverse == 0) {
+ 354:	80 91 82 00 	lds	r24, 0x0082	; 0x800082 <_ZL7reverse>
+ 358:	90 91 83 00 	lds	r25, 0x0083	; 0x800083 <_ZL7reverse+0x1>
+ 35c:	89 2b       	or	r24, r25
+ 35e:	e1 f4       	brne	.+56     	; 0x398 <_Z15handleVariant21v+0x112>
+				if (current21 < 23) {
+ 360:	80 91 8a 00 	lds	r24, 0x008A	; 0x80008a <_ZL9current21>
+ 364:	90 91 8b 00 	lds	r25, 0x008B	; 0x80008b <_ZL9current21+0x1>
+ 368:	87 31       	cpi	r24, 0x17	; 23
+ 36a:	91 05       	cpc	r25, r1
+ 36c:	84 f4       	brge	.+32     	; 0x38e <_Z15handleVariant21v+0x108>
+					current21++;
+ 36e:	01 96       	adiw	r24, 0x01	; 1
+ 370:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <_ZL9current21+0x1>
+ 374:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <_ZL9current21>
+					sum21 += current21;
+ 378:	20 91 88 00 	lds	r18, 0x0088	; 0x800088 <_ZL5sum21>
+ 37c:	30 91 89 00 	lds	r19, 0x0089	; 0x800089 <_ZL5sum21+0x1>
+ 380:	82 0f       	add	r24, r18
+ 382:	93 1f       	adc	r25, r19
+ 384:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <_ZL5sum21+0x1>
+ 388:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <_ZL5sum21>
+ 38c:	08 95       	ret
+					} else {
+					counting21 = 0;
+ 38e:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <_ZL10counting21+0x1>
+ 392:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <_ZL10counting21>
+ 396:	08 95       	ret
+				}
+				} else {
+				// обратный счет: до 0
+				if (current21 > 0) {
+ 398:	80 91 8a 00 	lds	r24, 0x008A	; 0x80008a <_ZL9current21>
+ 39c:	90 91 8b 00 	lds	r25, 0x008B	; 0x80008b <_ZL9current21+0x1>
+ 3a0:	18 16       	cp	r1, r24
+ 3a2:	19 06       	cpc	r1, r25
+ 3a4:	84 f4       	brge	.+32     	; 0x3c6 <_Z15handleVariant21v+0x140>
+					current21--;
+ 3a6:	01 97       	sbiw	r24, 0x01	; 1
+ 3a8:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <_ZL9current21+0x1>
+ 3ac:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <_ZL9current21>
+					sum21 += current21;
+ 3b0:	20 91 88 00 	lds	r18, 0x0088	; 0x800088 <_ZL5sum21>
+ 3b4:	30 91 89 00 	lds	r19, 0x0089	; 0x800089 <_ZL5sum21+0x1>
+ 3b8:	82 0f       	add	r24, r18
+ 3ba:	93 1f       	adc	r25, r19
+ 3bc:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <_ZL5sum21+0x1>
+ 3c0:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <_ZL5sum21>
+ 3c4:	08 95       	ret
+					} else {
+					counting21 = 0;
+ 3c6:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <_ZL10counting21+0x1>
+ 3ca:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <_ZL10counting21>
+ 3ce:	08 95       	ret
+
+000003d0 <_Z8ledPrinti>:
+	}
+}
+
+// для отображения
+void ledPrint(int number)
+{
+ 3d0:	cf 93       	push	r28
+ 3d2:	df 93       	push	r29
+ 3d4:	9c 01       	movw	r18, r24
+	if (number < 0) {
+ 3d6:	99 23       	and	r25, r25
+ 3d8:	14 f4       	brge	.+4      	; 0x3de <_Z8ledPrinti+0xe>
+		number = 0;  // -0
+ 3da:	20 e0       	ldi	r18, 0x00	; 0
+ 3dc:	30 e0       	ldi	r19, 0x00	; 0
+	}
+	
+	if (number < 10) {  // от 0 до 9
+ 3de:	2a 30       	cpi	r18, 0x0A	; 10
+ 3e0:	31 05       	cpc	r19, r1
+ 3e2:	6c f4       	brge	.+26     	; 0x3fe <_Z8ledPrinti+0x2e>
+		digits[0] = number % 10; 
+ 3e4:	c9 01       	movw	r24, r18
+ 3e6:	6a e0       	ldi	r22, 0x0A	; 10
+ 3e8:	70 e0       	ldi	r23, 0x00	; 0
+ 3ea:	ed d0       	rcall	.+474    	; 0x5c6 <__divmodhi4>
+ 3ec:	ea e7       	ldi	r30, 0x7A	; 122
+ 3ee:	f0 e0       	ldi	r31, 0x00	; 0
+ 3f0:	91 83       	std	Z+1, r25	; 0x01
+ 3f2:	80 83       	st	Z, r24
+		digits[1] = 0;          
+ 3f4:	13 82       	std	Z+3, r1	; 0x03
+ 3f6:	12 82       	std	Z+2, r1	; 0x02
+		digits[2] = 0;         
+ 3f8:	15 82       	std	Z+5, r1	; 0x05
+ 3fa:	14 82       	std	Z+4, r1	; 0x04
+ 3fc:	28 c0       	rjmp	.+80     	; 0x44e <__DATA_REGION_LENGTH__+0x4e>
+		} else if (number < 100) { // от 10 до 99
+ 3fe:	24 36       	cpi	r18, 0x64	; 100
+ 400:	31 05       	cpc	r19, r1
+ 402:	8c f4       	brge	.+34     	; 0x426 <__DATA_REGION_LENGTH__+0x26>
+		digits[0] = number % 10;     
+ 404:	ca e0       	ldi	r28, 0x0A	; 10
+ 406:	d0 e0       	ldi	r29, 0x00	; 0
+ 408:	c9 01       	movw	r24, r18
+ 40a:	be 01       	movw	r22, r28
+ 40c:	dc d0       	rcall	.+440    	; 0x5c6 <__divmodhi4>
+ 40e:	ea e7       	ldi	r30, 0x7A	; 122
+ 410:	f0 e0       	ldi	r31, 0x00	; 0
+ 412:	91 83       	std	Z+1, r25	; 0x01
+ 414:	80 83       	st	Z, r24
+		digits[1] = number / 10 % 10;
+ 416:	cb 01       	movw	r24, r22
+ 418:	be 01       	movw	r22, r28
+ 41a:	d5 d0       	rcall	.+426    	; 0x5c6 <__divmodhi4>
+ 41c:	93 83       	std	Z+3, r25	; 0x03
+ 41e:	82 83       	std	Z+2, r24	; 0x02
+		digits[2] = 0;              
+ 420:	15 82       	std	Z+5, r1	; 0x05
+ 422:	14 82       	std	Z+4, r1	; 0x04
+ 424:	14 c0       	rjmp	.+40     	; 0x44e <__DATA_REGION_LENGTH__+0x4e>
+		} else {  // от 100 
+		digits[0] = number % 10;        
+ 426:	ca e0       	ldi	r28, 0x0A	; 10
+ 428:	d0 e0       	ldi	r29, 0x00	; 0
+ 42a:	c9 01       	movw	r24, r18
+ 42c:	be 01       	movw	r22, r28
+ 42e:	cb d0       	rcall	.+406    	; 0x5c6 <__divmodhi4>
+ 430:	ea e7       	ldi	r30, 0x7A	; 122
+ 432:	f0 e0       	ldi	r31, 0x00	; 0
+ 434:	91 83       	std	Z+1, r25	; 0x01
+ 436:	80 83       	st	Z, r24
+		digits[1] = number / 10 % 10;   
+ 438:	cb 01       	movw	r24, r22
+ 43a:	be 01       	movw	r22, r28
+ 43c:	c4 d0       	rcall	.+392    	; 0x5c6 <__divmodhi4>
+ 43e:	93 83       	std	Z+3, r25	; 0x03
+ 440:	82 83       	std	Z+2, r24	; 0x02
+		digits[2] = number / 100;       
+ 442:	c9 01       	movw	r24, r18
+ 444:	64 e6       	ldi	r22, 0x64	; 100
+ 446:	70 e0       	ldi	r23, 0x00	; 0
+ 448:	be d0       	rcall	.+380    	; 0x5c6 <__divmodhi4>
+ 44a:	75 83       	std	Z+5, r23	; 0x05
+ 44c:	64 83       	std	Z+4, r22	; 0x04
+	}
+}
+ 44e:	df 91       	pop	r29
+ 450:	cf 91       	pop	r28
+ 452:	08 95       	ret
+
+00000454 <_Z13updateDisplayv>:
+	}
+}
+
+void updateDisplay()
+{
+	if (mode == 0) {
+ 454:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <_ZL4mode>
+ 458:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <_ZL4mode+0x1>
+ 45c:	89 2b       	or	r24, r25
+ 45e:	31 f4       	brne	.+12     	; 0x46c <__stack+0xd>
+		// оснвной режим
+		ledPrint(num);
+ 460:	80 91 8e 00 	lds	r24, 0x008E	; 0x80008e <_ZL3num>
+ 464:	90 91 8f 00 	lds	r25, 0x008F	; 0x80008f <_ZL3num+0x1>
+ 468:	b3 df       	rcall	.-154    	; 0x3d0 <_Z8ledPrinti>
+ 46a:	08 95       	ret
+		} else {
+		// режим варианта
+		if (setting21) {
+ 46c:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <_ZL9setting21>
+ 470:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <_ZL9setting21+0x1>
+ 474:	89 2b       	or	r24, r25
+ 476:	31 f0       	breq	.+12     	; 0x484 <__stack+0x25>
+			ledPrint(startNum);
+ 478:	80 91 8c 00 	lds	r24, 0x008C	; 0x80008c <_ZL8startNum>
+ 47c:	90 91 8d 00 	lds	r25, 0x008D	; 0x80008d <_ZL8startNum+0x1>
+ 480:	a7 df       	rcall	.-178    	; 0x3d0 <_Z8ledPrinti>
+ 482:	08 95       	ret
+			} else if (counting21) {
+ 484:	80 91 80 00 	lds	r24, 0x0080	; 0x800080 <_ZL10counting21>
+ 488:	90 91 81 00 	lds	r25, 0x0081	; 0x800081 <_ZL10counting21+0x1>
+ 48c:	89 2b       	or	r24, r25
+ 48e:	31 f0       	breq	.+12     	; 0x49c <__stack+0x3d>
+			ledPrint(current21);
+ 490:	80 91 8a 00 	lds	r24, 0x008A	; 0x80008a <_ZL9current21>
+ 494:	90 91 8b 00 	lds	r25, 0x008B	; 0x80008b <_ZL9current21+0x1>
+ 498:	9b df       	rcall	.-202    	; 0x3d0 <_Z8ledPrinti>
+ 49a:	08 95       	ret
+			} else {
+			ledPrint(sum21);
+ 49c:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <_ZL5sum21>
+ 4a0:	90 91 89 00 	lds	r25, 0x0089	; 0x800089 <_ZL5sum21+0x1>
+ 4a4:	95 df       	rcall	.-214    	; 0x3d0 <_Z8ledPrinti>
+ 4a6:	08 95       	ret
+
+000004a8 <main>:
+	TCNT1 = 64536;
+}
+
+int main(void)
+{
+	initPort();
+ 4a8:	da dd       	rcall	.-1100   	; 0x5e <_Z8initPortv>
+	initTimer1();
+ 4aa:	e1 dd       	rcall	.-1086   	; 0x6e <_Z10initTimer1v>
+	
+	while (1)
+	{
+		handleButtons();
+ 4ac:	eb dd       	rcall	.-1066   	; 0x84 <_Z13handleButtonsv>
+		
+		if (mode == 0) {
+ 4ae:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <_ZL4mode>
+ 4b2:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <_ZL4mode+0x1>
+ 4b6:	89 2b       	or	r24, r25
+ 4b8:	11 f4       	brne	.+4      	; 0x4be <main+0x16>
+			handleMainMode();    
+ 4ba:	ad de       	rcall	.-678    	; 0x216 <_Z14handleMainModev>
+ 4bc:	01 c0       	rjmp	.+2      	; 0x4c0 <main+0x18>
+			} else {
+			handleVariant21();   
+ 4be:	e3 de       	rcall	.-570    	; 0x286 <_Z15handleVariant21v>
+		}
+		
+		updateDisplay();
+ 4c0:	c9 df       	rcall	.-110    	; 0x454 <_Z13updateDisplayv>
+ 4c2:	2f e7       	ldi	r18, 0x7F	; 127
+ 4c4:	88 e3       	ldi	r24, 0x38	; 56
+ 4c6:	91 e0       	ldi	r25, 0x01	; 1
+ 4c8:	21 50       	subi	r18, 0x01	; 1
+ 4ca:	80 40       	sbci	r24, 0x00	; 0
+ 4cc:	90 40       	sbci	r25, 0x00	; 0
+ 4ce:	e1 f7       	brne	.-8      	; 0x4c8 <main+0x20>
+ 4d0:	00 c0       	rjmp	.+0      	; 0x4d2 <main+0x2a>
+ 4d2:	00 00       	nop
+ 4d4:	eb cf       	rjmp	.-42     	; 0x4ac <main+0x4>
+
+000004d6 <_Z12segmentSeveni>:
+}
+
+// Вывод цифры на индикатор
+void segmentSeven(int digit)
+{
+	if (digit >= 0 && digit <= 10) {
+ 4d6:	8b 30       	cpi	r24, 0x0B	; 11
+ 4d8:	91 05       	cpc	r25, r1
+ 4da:	30 f4       	brcc	.+12     	; 0x4e8 <_Z12segmentSeveni+0x12>
+		PORTD = digit_table[digit];
+ 4dc:	fc 01       	movw	r30, r24
+ 4de:	e8 59       	subi	r30, 0x98	; 152
+ 4e0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4e2:	80 81       	ld	r24, Z
+ 4e4:	82 bb       	out	0x12, r24	; 18
+ 4e6:	08 95       	ret
+		} else {
+		PORTD = 0xFF;
+ 4e8:	8f ef       	ldi	r24, 0xFF	; 255
+ 4ea:	82 bb       	out	0x12, r24	; 18
+ 4ec:	08 95       	ret
+
+000004ee <__vector_8>:
+void ledPrint(int number);
+void segmentSeven(int digit);
+
+// Прерывание Timer1
+ISR(TIMER1_OVF_vect)
+{
+ 4ee:	1f 92       	push	r1
+ 4f0:	0f 92       	push	r0
+ 4f2:	0f b6       	in	r0, 0x3f	; 63
+ 4f4:	0f 92       	push	r0
+ 4f6:	11 24       	eor	r1, r1
+ 4f8:	2f 93       	push	r18
+ 4fa:	3f 93       	push	r19
+ 4fc:	4f 93       	push	r20
+ 4fe:	5f 93       	push	r21
+ 500:	6f 93       	push	r22
+ 502:	7f 93       	push	r23
+ 504:	8f 93       	push	r24
+ 506:	9f 93       	push	r25
+ 508:	af 93       	push	r26
+ 50a:	bf 93       	push	r27
+ 50c:	ef 93       	push	r30
+ 50e:	ff 93       	push	r31
+	// выключаем
+	PORTB &= ~((1 << PB0) | (1 << PB1) | (1 << PB2));
+ 510:	88 b3       	in	r24, 0x18	; 24
+ 512:	88 7f       	andi	r24, 0xF8	; 248
+ 514:	88 bb       	out	0x18, r24	; 24
+	
+	// Включаем нужный индикатор
+	if (n == 0) {
+ 516:	80 91 86 00 	lds	r24, 0x0086	; 0x800086 <_ZL1n>
+ 51a:	90 91 87 00 	lds	r25, 0x0087	; 0x800087 <_ZL1n+0x1>
+ 51e:	00 97       	sbiw	r24, 0x00	; 0
+ 520:	79 f4       	brne	.+30     	; 0x540 <__vector_8+0x52>
+		PORTB |= (1 << PB0);
+ 522:	88 b3       	in	r24, 0x18	; 24
+ 524:	81 60       	ori	r24, 0x01	; 1
+ 526:	88 bb       	out	0x18, r24	; 24
+		PORTB &= ~(1 << PB1);
+ 528:	88 b3       	in	r24, 0x18	; 24
+ 52a:	8d 7f       	andi	r24, 0xFD	; 253
+ 52c:	88 bb       	out	0x18, r24	; 24
+		PORTB &= ~(1 << PB2);
+ 52e:	88 b3       	in	r24, 0x18	; 24
+ 530:	8b 7f       	andi	r24, 0xFB	; 251
+ 532:	88 bb       	out	0x18, r24	; 24
+		segmentSeven(digits[0]);  
+ 534:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <_ZL6digits>
+ 538:	90 91 7b 00 	lds	r25, 0x007B	; 0x80007b <_ZL6digits+0x1>
+ 53c:	cc df       	rcall	.-104    	; 0x4d6 <_Z12segmentSeveni>
+ 53e:	1f c0       	rjmp	.+62     	; 0x57e <__vector_8+0x90>
+	}
+	else if (n == 1) {
+ 540:	01 97       	sbiw	r24, 0x01	; 1
+ 542:	79 f4       	brne	.+30     	; 0x562 <__vector_8+0x74>
+		PORTB |= (1 << PB1);
+ 544:	88 b3       	in	r24, 0x18	; 24
+ 546:	82 60       	ori	r24, 0x02	; 2
+ 548:	88 bb       	out	0x18, r24	; 24
+		PORTB &= ~(1 << PB0);
+ 54a:	88 b3       	in	r24, 0x18	; 24
+ 54c:	8e 7f       	andi	r24, 0xFE	; 254
+ 54e:	88 bb       	out	0x18, r24	; 24
+		PORTB &= ~(1 << PB2);
+ 550:	88 b3       	in	r24, 0x18	; 24
+ 552:	8b 7f       	andi	r24, 0xFB	; 251
+ 554:	88 bb       	out	0x18, r24	; 24
+		segmentSeven(digits[1]);  
+ 556:	80 91 7c 00 	lds	r24, 0x007C	; 0x80007c <_ZL6digits+0x2>
+ 55a:	90 91 7d 00 	lds	r25, 0x007D	; 0x80007d <_ZL6digits+0x3>
+ 55e:	bb df       	rcall	.-138    	; 0x4d6 <_Z12segmentSeveni>
+ 560:	0e c0       	rjmp	.+28     	; 0x57e <__vector_8+0x90>
+	}
+	else {
+		PORTB |= (1 << PB2);
+ 562:	88 b3       	in	r24, 0x18	; 24
+ 564:	84 60       	ori	r24, 0x04	; 4
+ 566:	88 bb       	out	0x18, r24	; 24
+		PORTB &= ~(1 << PB0);
+ 568:	88 b3       	in	r24, 0x18	; 24
+ 56a:	8e 7f       	andi	r24, 0xFE	; 254
+ 56c:	88 bb       	out	0x18, r24	; 24
+		PORTB &= ~(1 << PB1);
+ 56e:	88 b3       	in	r24, 0x18	; 24
+ 570:	8d 7f       	andi	r24, 0xFD	; 253
+ 572:	88 bb       	out	0x18, r24	; 24
+		segmentSeven(digits[2]);  
+ 574:	80 91 7e 00 	lds	r24, 0x007E	; 0x80007e <_ZL6digits+0x4>
+ 578:	90 91 7f 00 	lds	r25, 0x007F	; 0x80007f <_ZL6digits+0x5>
+ 57c:	ac df       	rcall	.-168    	; 0x4d6 <_Z12segmentSeveni>
+	}
+	n++;
+ 57e:	80 91 86 00 	lds	r24, 0x0086	; 0x800086 <_ZL1n>
+ 582:	90 91 87 00 	lds	r25, 0x0087	; 0x800087 <_ZL1n+0x1>
+ 586:	01 96       	adiw	r24, 0x01	; 1
+ 588:	90 93 87 00 	sts	0x0087, r25	; 0x800087 <_ZL1n+0x1>
+ 58c:	80 93 86 00 	sts	0x0086, r24	; 0x800086 <_ZL1n>
+	if (n > 2) n = 0;
+ 590:	03 97       	sbiw	r24, 0x03	; 3
+ 592:	24 f0       	brlt	.+8      	; 0x59c <__vector_8+0xae>
+ 594:	10 92 87 00 	sts	0x0087, r1	; 0x800087 <_ZL1n+0x1>
+ 598:	10 92 86 00 	sts	0x0086, r1	; 0x800086 <_ZL1n>
+	TCNT1 = 64536;
+ 59c:	88 e1       	ldi	r24, 0x18	; 24
+ 59e:	9c ef       	ldi	r25, 0xFC	; 252
+ 5a0:	9d bd       	out	0x2d, r25	; 45
+ 5a2:	8c bd       	out	0x2c, r24	; 44
+}
+ 5a4:	ff 91       	pop	r31
+ 5a6:	ef 91       	pop	r30
+ 5a8:	bf 91       	pop	r27
+ 5aa:	af 91       	pop	r26
+ 5ac:	9f 91       	pop	r25
+ 5ae:	8f 91       	pop	r24
+ 5b0:	7f 91       	pop	r23
+ 5b2:	6f 91       	pop	r22
+ 5b4:	5f 91       	pop	r21
+ 5b6:	4f 91       	pop	r20
+ 5b8:	3f 91       	pop	r19
+ 5ba:	2f 91       	pop	r18
+ 5bc:	0f 90       	pop	r0
+ 5be:	0f be       	out	0x3f, r0	; 63
+ 5c0:	0f 90       	pop	r0
+ 5c2:	1f 90       	pop	r1
+ 5c4:	18 95       	reti
+
+000005c6 <__divmodhi4>:
+ 5c6:	97 fb       	bst	r25, 7
+ 5c8:	07 2e       	mov	r0, r23
+ 5ca:	16 f4       	brtc	.+4      	; 0x5d0 <__divmodhi4+0xa>
+ 5cc:	00 94       	com	r0
+ 5ce:	06 d0       	rcall	.+12     	; 0x5dc <__divmodhi4_neg1>
+ 5d0:	77 fd       	sbrc	r23, 7
+ 5d2:	08 d0       	rcall	.+16     	; 0x5e4 <__divmodhi4_neg2>
+ 5d4:	0b d0       	rcall	.+22     	; 0x5ec <__udivmodhi4>
+ 5d6:	07 fc       	sbrc	r0, 7
+ 5d8:	05 d0       	rcall	.+10     	; 0x5e4 <__divmodhi4_neg2>
+ 5da:	3e f4       	brtc	.+14     	; 0x5ea <__divmodhi4_exit>
+
+000005dc <__divmodhi4_neg1>:
+ 5dc:	90 95       	com	r25
+ 5de:	81 95       	neg	r24
+ 5e0:	9f 4f       	sbci	r25, 0xFF	; 255
+ 5e2:	08 95       	ret
+
+000005e4 <__divmodhi4_neg2>:
+ 5e4:	70 95       	com	r23
+ 5e6:	61 95       	neg	r22
+ 5e8:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000005ea <__divmodhi4_exit>:
+ 5ea:	08 95       	ret
+
+000005ec <__udivmodhi4>:
+ 5ec:	aa 1b       	sub	r26, r26
+ 5ee:	bb 1b       	sub	r27, r27
+ 5f0:	51 e1       	ldi	r21, 0x11	; 17
+ 5f2:	07 c0       	rjmp	.+14     	; 0x602 <__udivmodhi4_ep>
+
+000005f4 <__udivmodhi4_loop>:
+ 5f4:	aa 1f       	adc	r26, r26
+ 5f6:	bb 1f       	adc	r27, r27
+ 5f8:	a6 17       	cp	r26, r22
+ 5fa:	b7 07       	cpc	r27, r23
+ 5fc:	10 f0       	brcs	.+4      	; 0x602 <__udivmodhi4_ep>
+ 5fe:	a6 1b       	sub	r26, r22
+ 600:	b7 0b       	sbc	r27, r23
+
+00000602 <__udivmodhi4_ep>:
+ 602:	88 1f       	adc	r24, r24
+ 604:	99 1f       	adc	r25, r25
+ 606:	5a 95       	dec	r21
+ 608:	a9 f7       	brne	.-22     	; 0x5f4 <__udivmodhi4_loop>
+ 60a:	80 95       	com	r24
+ 60c:	90 95       	com	r25
+ 60e:	bc 01       	movw	r22, r24
+ 610:	cd 01       	movw	r24, r26
+ 612:	08 95       	ret
+
+00000614 <_exit>:
+ 614:	f8 94       	cli
+
+00000616 <__stop_program>:
+ 616:	ff cf       	rjmp	.-2      	; 0x616 <__stop_program>

@@ -1,0 +1,712 @@
+
+pract1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000036a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000003de  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000004  00800060  00800060  000003de  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000003de  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000410  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000050  00000000  00000000  0000044c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000a12  00000000  00000000  0000049c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005d3  00000000  00000000  00000eae  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000442  00000000  00000000  00001481  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000098  00000000  00000000  000018c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003d8  00000000  00000000  0000195c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000421  00000000  00000000  00001d34  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000040  00000000  00000000  00002155  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a4 36       	cpi	r26, 0x64	; 100
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	54 d1       	rcall	.+680    	; 0x2ec <main>
+  44:	90 c1       	rjmp	.+800    	; 0x366 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <_Z8initPortv>:
+	}
+}
+
+void initPort()
+{
+	DDRD = 0xFF;
+  48:	8f ef       	ldi	r24, 0xFF	; 255
+  4a:	81 bb       	out	0x11, r24	; 17
+	PORTD = 0x00;
+  4c:	12 ba       	out	0x12, r1	; 18
+
+	DDRC = 0xFF;
+  4e:	84 bb       	out	0x14, r24	; 20
+	PORTC = 0x00;
+  50:	15 ba       	out	0x15, r1	; 21
+
+	DDRB &= ~((1 << PB0) | (1 << PB1));
+  52:	87 b3       	in	r24, 0x17	; 23
+  54:	8c 7f       	andi	r24, 0xFC	; 252
+  56:	87 bb       	out	0x17, r24	; 23
+	PORTB |= (1 << PB0) | (1 << PB1);
+  58:	88 b3       	in	r24, 0x18	; 24
+  5a:	83 60       	ori	r24, 0x03	; 3
+  5c:	88 bb       	out	0x18, r24	; 24
+  5e:	08 95       	ret
+
+00000060 <_Z12checkButtonsv>:
+}
+
+void checkButtons()
+{
+	if (!(PINB & (1 << PB0)))
+  60:	b0 99       	sbic	0x16, 0	; 22
+  62:	0f c0       	rjmp	.+30     	; 0x82 <_Z12checkButtonsv+0x22>
+	{
+		reverse = !reverse;
+  64:	90 91 63 00 	lds	r25, 0x0063	; 0x800063 <reverse>
+  68:	81 e0       	ldi	r24, 0x01	; 1
+  6a:	89 27       	eor	r24, r25
+  6c:	80 93 63 00 	sts	0x0063, r24	; 0x800063 <reverse>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  70:	2f e7       	ldi	r18, 0x7F	; 127
+  72:	89 ea       	ldi	r24, 0xA9	; 169
+  74:	93 e0       	ldi	r25, 0x03	; 3
+  76:	21 50       	subi	r18, 0x01	; 1
+  78:	80 40       	sbci	r24, 0x00	; 0
+  7a:	90 40       	sbci	r25, 0x00	; 0
+  7c:	e1 f7       	brne	.-8      	; 0x76 <_Z12checkButtonsv+0x16>
+  7e:	00 c0       	rjmp	.+0      	; 0x80 <_Z12checkButtonsv+0x20>
+  80:	00 00       	nop
+		_delay_ms(150);
+	}
+	if (!(PINB & (1 << PB1)))
+  82:	b1 99       	sbic	0x16, 1	; 22
+  84:	11 c0       	rjmp	.+34     	; 0xa8 <_Z12checkButtonsv+0x48>
+	{
+		mode = !mode;
+  86:	90 91 62 00 	lds	r25, 0x0062	; 0x800062 <mode>
+  8a:	81 e0       	ldi	r24, 0x01	; 1
+  8c:	89 27       	eor	r24, r25
+  8e:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <mode>
+		reverse = false;
+  92:	10 92 63 00 	sts	0x0063, r1	; 0x800063 <reverse>
+  96:	2f e7       	ldi	r18, 0x7F	; 127
+  98:	89 ea       	ldi	r24, 0xA9	; 169
+  9a:	93 e0       	ldi	r25, 0x03	; 3
+  9c:	21 50       	subi	r18, 0x01	; 1
+  9e:	80 40       	sbci	r24, 0x00	; 0
+  a0:	90 40       	sbci	r25, 0x00	; 0
+  a2:	e1 f7       	brne	.-8      	; 0x9c <_Z12checkButtonsv+0x3c>
+  a4:	00 c0       	rjmp	.+0      	; 0xa6 <_Z12checkButtonsv+0x46>
+  a6:	00 00       	nop
+  a8:	08 95       	ret
+
+000000aa <_Z9downLightv>:
+		_delay_ms(150);
+	}
+}
+
+void downLight()
+{
+  aa:	cf 93       	push	r28
+	for (uint8_t i = 0; i < 7; i++)
+  ac:	c0 e0       	ldi	r28, 0x00	; 0
+  ae:	c7 30       	cpi	r28, 0x07	; 7
+  b0:	c8 f4       	brcc	.+50     	; 0xe4 <_Z9downLightv+0x3a>
+	{
+		checkButtons();
+  b2:	d6 df       	rcall	.-84     	; 0x60 <_Z12checkButtonsv>
+		PORTC = (1 << i);
+  b4:	81 e0       	ldi	r24, 0x01	; 1
+  b6:	90 e0       	ldi	r25, 0x00	; 0
+  b8:	0c 2e       	mov	r0, r28
+  ba:	02 c0       	rjmp	.+4      	; 0xc0 <_Z9downLightv+0x16>
+  bc:	88 0f       	add	r24, r24
+  be:	99 1f       	adc	r25, r25
+  c0:	0a 94       	dec	r0
+  c2:	e2 f7       	brpl	.-8      	; 0xbc <_Z9downLightv+0x12>
+  c4:	85 bb       	out	0x15, r24	; 21
+  c6:	2f e7       	ldi	r18, 0x7F	; 127
+  c8:	39 ea       	ldi	r19, 0xA9	; 169
+  ca:	43 e0       	ldi	r20, 0x03	; 3
+  cc:	21 50       	subi	r18, 0x01	; 1
+  ce:	30 40       	sbci	r19, 0x00	; 0
+  d0:	40 40       	sbci	r20, 0x00	; 0
+  d2:	e1 f7       	brne	.-8      	; 0xcc <_Z9downLightv+0x22>
+  d4:	00 c0       	rjmp	.+0      	; 0xd6 <_Z9downLightv+0x2c>
+  d6:	00 00       	nop
+		_delay_ms(DELAY);
+		PORTC &= ~(1 << i);
+  d8:	95 b3       	in	r25, 0x15	; 21
+  da:	80 95       	com	r24
+  dc:	89 23       	and	r24, r25
+  de:	85 bb       	out	0x15, r24	; 21
+	}
+}
+
+void downLight()
+{
+	for (uint8_t i = 0; i < 7; i++)
+  e0:	cf 5f       	subi	r28, 0xFF	; 255
+  e2:	e5 cf       	rjmp	.-54     	; 0xae <_Z9downLightv+0x4>
+		checkButtons();
+		PORTC = (1 << i);
+		_delay_ms(DELAY);
+		PORTC &= ~(1 << i);
+	}
+	PORTC &= ~(1 << 6);
+  e4:	85 b3       	in	r24, 0x15	; 21
+  e6:	8f 7b       	andi	r24, 0xBF	; 191
+  e8:	85 bb       	out	0x15, r24	; 21
+	
+	checkButtons();
+  ea:	ba df       	rcall	.-140    	; 0x60 <_Z12checkButtonsv>
+
+	for (uint8_t i = 0; i < 7; i++)
+  ec:	c0 e0       	ldi	r28, 0x00	; 0
+  ee:	c7 30       	cpi	r28, 0x07	; 7
+  f0:	c8 f4       	brcc	.+50     	; 0x124 <_Z9downLightv+0x7a>
+	{
+		checkButtons();
+  f2:	b6 df       	rcall	.-148    	; 0x60 <_Z12checkButtonsv>
+		PORTD = (1 << i);
+  f4:	81 e0       	ldi	r24, 0x01	; 1
+  f6:	90 e0       	ldi	r25, 0x00	; 0
+  f8:	0c 2e       	mov	r0, r28
+  fa:	02 c0       	rjmp	.+4      	; 0x100 <_Z9downLightv+0x56>
+  fc:	88 0f       	add	r24, r24
+  fe:	99 1f       	adc	r25, r25
+ 100:	0a 94       	dec	r0
+ 102:	e2 f7       	brpl	.-8      	; 0xfc <_Z9downLightv+0x52>
+ 104:	82 bb       	out	0x12, r24	; 18
+ 106:	2f e7       	ldi	r18, 0x7F	; 127
+ 108:	39 ea       	ldi	r19, 0xA9	; 169
+ 10a:	43 e0       	ldi	r20, 0x03	; 3
+ 10c:	21 50       	subi	r18, 0x01	; 1
+ 10e:	30 40       	sbci	r19, 0x00	; 0
+ 110:	40 40       	sbci	r20, 0x00	; 0
+ 112:	e1 f7       	brne	.-8      	; 0x10c <_Z9downLightv+0x62>
+ 114:	00 c0       	rjmp	.+0      	; 0x116 <_Z9downLightv+0x6c>
+ 116:	00 00       	nop
+		_delay_ms(DELAY);
+		PORTD &= ~(1 << i);
+ 118:	92 b3       	in	r25, 0x12	; 18
+ 11a:	80 95       	com	r24
+ 11c:	89 23       	and	r24, r25
+ 11e:	82 bb       	out	0x12, r24	; 18
+	}
+	PORTC &= ~(1 << 6);
+	
+	checkButtons();
+
+	for (uint8_t i = 0; i < 7; i++)
+ 120:	cf 5f       	subi	r28, 0xFF	; 255
+ 122:	e5 cf       	rjmp	.-54     	; 0xee <_Z9downLightv+0x44>
+		checkButtons();
+		PORTD = (1 << i);
+		_delay_ms(DELAY);
+		PORTD &= ~(1 << i);
+	}
+	PORTD &= ~(1 << 6);
+ 124:	82 b3       	in	r24, 0x12	; 18
+ 126:	8f 7b       	andi	r24, 0xBF	; 191
+ 128:	82 bb       	out	0x12, r24	; 18
+}
+ 12a:	cf 91       	pop	r28
+ 12c:	08 95       	ret
+
+0000012e <_Z7upLightv>:
+
+void upLight()
+{
+ 12e:	cf 93       	push	r28
+ 130:	df 93       	push	r29
+	for (int i = 6; i >= 0; i--)
+ 132:	c6 e0       	ldi	r28, 0x06	; 6
+ 134:	d0 e0       	ldi	r29, 0x00	; 0
+ 136:	dd 23       	and	r29, r29
+ 138:	14 f1       	brlt	.+68     	; 0x17e <_Z7upLightv+0x50>
+	{
+		checkButtons();
+ 13a:	92 df       	rcall	.-220    	; 0x60 <_Z12checkButtonsv>
+		PORTD = (1 << i);
+ 13c:	81 e0       	ldi	r24, 0x01	; 1
+ 13e:	90 e0       	ldi	r25, 0x00	; 0
+ 140:	0c 2e       	mov	r0, r28
+ 142:	02 c0       	rjmp	.+4      	; 0x148 <_Z7upLightv+0x1a>
+ 144:	88 0f       	add	r24, r24
+ 146:	99 1f       	adc	r25, r25
+ 148:	0a 94       	dec	r0
+ 14a:	e2 f7       	brpl	.-8      	; 0x144 <_Z7upLightv+0x16>
+ 14c:	82 bb       	out	0x12, r24	; 18
+ 14e:	3f e7       	ldi	r19, 0x7F	; 127
+ 150:	49 ea       	ldi	r20, 0xA9	; 169
+ 152:	23 e0       	ldi	r18, 0x03	; 3
+ 154:	31 50       	subi	r19, 0x01	; 1
+ 156:	40 40       	sbci	r20, 0x00	; 0
+ 158:	20 40       	sbci	r18, 0x00	; 0
+ 15a:	e1 f7       	brne	.-8      	; 0x154 <_Z7upLightv+0x26>
+ 15c:	00 c0       	rjmp	.+0      	; 0x15e <_Z7upLightv+0x30>
+ 15e:	00 00       	nop
+		_delay_ms(DELAY);
+		PORTD &= ~(1 << i);
+ 160:	92 b3       	in	r25, 0x12	; 18
+ 162:	80 95       	com	r24
+ 164:	89 23       	and	r24, r25
+ 166:	82 bb       	out	0x12, r24	; 18
+ 168:	3f e7       	ldi	r19, 0x7F	; 127
+ 16a:	49 ea       	ldi	r20, 0xA9	; 169
+ 16c:	83 e0       	ldi	r24, 0x03	; 3
+ 16e:	31 50       	subi	r19, 0x01	; 1
+ 170:	40 40       	sbci	r20, 0x00	; 0
+ 172:	80 40       	sbci	r24, 0x00	; 0
+ 174:	e1 f7       	brne	.-8      	; 0x16e <_Z7upLightv+0x40>
+ 176:	00 c0       	rjmp	.+0      	; 0x178 <_Z7upLightv+0x4a>
+ 178:	00 00       	nop
+	PORTD &= ~(1 << 6);
+}
+
+void upLight()
+{
+	for (int i = 6; i >= 0; i--)
+ 17a:	21 97       	sbiw	r28, 0x01	; 1
+ 17c:	dc cf       	rjmp	.-72     	; 0x136 <_Z7upLightv+0x8>
+		PORTD = (1 << i);
+		_delay_ms(DELAY);
+		PORTD &= ~(1 << i);
+		_delay_ms(DELAY);
+	}
+	PORTD &= ~(1 << 0);
+ 17e:	82 b3       	in	r24, 0x12	; 18
+ 180:	8e 7f       	andi	r24, 0xFE	; 254
+ 182:	82 bb       	out	0x12, r24	; 18
+	
+	
+	checkButtons();
+ 184:	6d df       	rcall	.-294    	; 0x60 <_Z12checkButtonsv>
+	PORTD &= ~(1 << 7);
+ 186:	82 b3       	in	r24, 0x12	; 18
+ 188:	8f 77       	andi	r24, 0x7F	; 127
+ 18a:	82 bb       	out	0x12, r24	; 18
+
+	for (int i = 6; i >= 0; i--)
+ 18c:	c6 e0       	ldi	r28, 0x06	; 6
+ 18e:	d0 e0       	ldi	r29, 0x00	; 0
+ 190:	dd 23       	and	r29, r29
+ 192:	14 f1       	brlt	.+68     	; 0x1d8 <_Z7upLightv+0xaa>
+	{
+		checkButtons();
+ 194:	65 df       	rcall	.-310    	; 0x60 <_Z12checkButtonsv>
+		PORTC = (1 << i);
+ 196:	81 e0       	ldi	r24, 0x01	; 1
+ 198:	90 e0       	ldi	r25, 0x00	; 0
+ 19a:	0c 2e       	mov	r0, r28
+ 19c:	02 c0       	rjmp	.+4      	; 0x1a2 <_Z7upLightv+0x74>
+ 19e:	88 0f       	add	r24, r24
+ 1a0:	99 1f       	adc	r25, r25
+ 1a2:	0a 94       	dec	r0
+ 1a4:	e2 f7       	brpl	.-8      	; 0x19e <_Z7upLightv+0x70>
+ 1a6:	85 bb       	out	0x15, r24	; 21
+ 1a8:	3f e7       	ldi	r19, 0x7F	; 127
+ 1aa:	49 ea       	ldi	r20, 0xA9	; 169
+ 1ac:	23 e0       	ldi	r18, 0x03	; 3
+ 1ae:	31 50       	subi	r19, 0x01	; 1
+ 1b0:	40 40       	sbci	r20, 0x00	; 0
+ 1b2:	20 40       	sbci	r18, 0x00	; 0
+ 1b4:	e1 f7       	brne	.-8      	; 0x1ae <_Z7upLightv+0x80>
+ 1b6:	00 c0       	rjmp	.+0      	; 0x1b8 <_Z7upLightv+0x8a>
+ 1b8:	00 00       	nop
+		_delay_ms(DELAY);
+		PORTC &= ~(1 << i);
+ 1ba:	95 b3       	in	r25, 0x15	; 21
+ 1bc:	80 95       	com	r24
+ 1be:	89 23       	and	r24, r25
+ 1c0:	85 bb       	out	0x15, r24	; 21
+ 1c2:	3f e7       	ldi	r19, 0x7F	; 127
+ 1c4:	49 ea       	ldi	r20, 0xA9	; 169
+ 1c6:	83 e0       	ldi	r24, 0x03	; 3
+ 1c8:	31 50       	subi	r19, 0x01	; 1
+ 1ca:	40 40       	sbci	r20, 0x00	; 0
+ 1cc:	80 40       	sbci	r24, 0x00	; 0
+ 1ce:	e1 f7       	brne	.-8      	; 0x1c8 <_Z7upLightv+0x9a>
+ 1d0:	00 c0       	rjmp	.+0      	; 0x1d2 <_Z7upLightv+0xa4>
+ 1d2:	00 00       	nop
+	
+	
+	checkButtons();
+	PORTD &= ~(1 << 7);
+
+	for (int i = 6; i >= 0; i--)
+ 1d4:	21 97       	sbiw	r28, 0x01	; 1
+ 1d6:	dc cf       	rjmp	.-72     	; 0x190 <_Z7upLightv+0x62>
+		PORTC = (1 << i);
+		_delay_ms(DELAY);
+		PORTC &= ~(1 << i);
+		_delay_ms(DELAY);
+	}
+	PORTC &= ~(1 << 0);
+ 1d8:	85 b3       	in	r24, 0x15	; 21
+ 1da:	8e 7f       	andi	r24, 0xFE	; 254
+ 1dc:	85 bb       	out	0x15, r24	; 21
+}
+ 1de:	df 91       	pop	r29
+ 1e0:	cf 91       	pop	r28
+ 1e2:	08 95       	ret
+
+000001e4 <_Z9clockwisev>:
+
+void clockwise(void)
+{
+	static uint8_t position = 0;
+	checkButtons();
+ 1e4:	3d df       	rcall	.-390    	; 0x60 <_Z12checkButtonsv>
+	PORTC = 0x00;
+ 1e6:	15 ba       	out	0x15, r1	; 21
+	PORTD = 0x00;
+ 1e8:	12 ba       	out	0x12, r1	; 18
+	
+	for (uint8_t i = 0; i < 4; i++) {
+ 1ea:	20 e0       	ldi	r18, 0x00	; 0
+ 1ec:	24 30       	cpi	r18, 0x04	; 4
+ 1ee:	40 f5       	brcc	.+80     	; 0x240 <__EEPROM_REGION_LENGTH__+0x40>
+		uint8_t led_num = (position + i) % 15;
+ 1f0:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <_ZZ9clockwisevE8position>
+ 1f4:	82 2f       	mov	r24, r18
+ 1f6:	90 e0       	ldi	r25, 0x00	; 0
+ 1f8:	83 0f       	add	r24, r19
+ 1fa:	91 1d       	adc	r25, r1
+ 1fc:	6f e0       	ldi	r22, 0x0F	; 15
+ 1fe:	70 e0       	ldi	r23, 0x00	; 0
+ 200:	8b d0       	rcall	.+278    	; 0x318 <__divmodhi4>
+		
+		if (led_num < 8) {
+ 202:	88 30       	cpi	r24, 0x08	; 8
+ 204:	68 f4       	brcc	.+26     	; 0x220 <__EEPROM_REGION_LENGTH__+0x20>
+			PORTC |= (1 << led_num);      // PORTC 0-7
+ 206:	35 b3       	in	r19, 0x15	; 21
+ 208:	41 e0       	ldi	r20, 0x01	; 1
+ 20a:	50 e0       	ldi	r21, 0x00	; 0
+ 20c:	ba 01       	movw	r22, r20
+ 20e:	02 c0       	rjmp	.+4      	; 0x214 <__EEPROM_REGION_LENGTH__+0x14>
+ 210:	66 0f       	add	r22, r22
+ 212:	77 1f       	adc	r23, r23
+ 214:	8a 95       	dec	r24
+ 216:	e2 f7       	brpl	.-8      	; 0x210 <__EEPROM_REGION_LENGTH__+0x10>
+ 218:	cb 01       	movw	r24, r22
+ 21a:	83 2b       	or	r24, r19
+ 21c:	85 bb       	out	0x15, r24	; 21
+ 21e:	0e c0       	rjmp	.+28     	; 0x23c <__EEPROM_REGION_LENGTH__+0x3c>
+			} else {
+			PORTD |= (1 << (led_num - 8)); // PORTD 8-13
+ 220:	32 b3       	in	r19, 0x12	; 18
+ 222:	99 27       	eor	r25, r25
+ 224:	08 97       	sbiw	r24, 0x08	; 8
+ 226:	41 e0       	ldi	r20, 0x01	; 1
+ 228:	50 e0       	ldi	r21, 0x00	; 0
+ 22a:	ba 01       	movw	r22, r20
+ 22c:	02 c0       	rjmp	.+4      	; 0x232 <__EEPROM_REGION_LENGTH__+0x32>
+ 22e:	66 0f       	add	r22, r22
+ 230:	77 1f       	adc	r23, r23
+ 232:	8a 95       	dec	r24
+ 234:	e2 f7       	brpl	.-8      	; 0x22e <__EEPROM_REGION_LENGTH__+0x2e>
+ 236:	cb 01       	movw	r24, r22
+ 238:	83 2b       	or	r24, r19
+ 23a:	82 bb       	out	0x12, r24	; 18
+	static uint8_t position = 0;
+	checkButtons();
+	PORTC = 0x00;
+	PORTD = 0x00;
+	
+	for (uint8_t i = 0; i < 4; i++) {
+ 23c:	2f 5f       	subi	r18, 0xFF	; 255
+ 23e:	d6 cf       	rjmp	.-84     	; 0x1ec <_Z9clockwisev+0x8>
+			} else {
+			PORTD |= (1 << (led_num - 8)); // PORTD 8-13
+		}
+	}
+	
+	position = (position + 1) % 15;
+ 240:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <_ZZ9clockwisevE8position>
+ 244:	90 e0       	ldi	r25, 0x00	; 0
+ 246:	01 96       	adiw	r24, 0x01	; 1
+ 248:	6f e0       	ldi	r22, 0x0F	; 15
+ 24a:	70 e0       	ldi	r23, 0x00	; 0
+ 24c:	65 d0       	rcall	.+202    	; 0x318 <__divmodhi4>
+ 24e:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <_ZZ9clockwisevE8position>
+ 252:	7f e7       	ldi	r23, 0x7F	; 127
+ 254:	89 ea       	ldi	r24, 0xA9	; 169
+ 256:	93 e0       	ldi	r25, 0x03	; 3
+ 258:	71 50       	subi	r23, 0x01	; 1
+ 25a:	80 40       	sbci	r24, 0x00	; 0
+ 25c:	90 40       	sbci	r25, 0x00	; 0
+ 25e:	e1 f7       	brne	.-8      	; 0x258 <__EEPROM_REGION_LENGTH__+0x58>
+ 260:	00 c0       	rjmp	.+0      	; 0x262 <__EEPROM_REGION_LENGTH__+0x62>
+ 262:	00 00       	nop
+	_delay_ms(DELAY);
+	checkButtons();
+ 264:	fd de       	rcall	.-518    	; 0x60 <_Z12checkButtonsv>
+ 266:	08 95       	ret
+
+00000268 <_Z15clockwiseReversv>:
+}
+
+void clockwiseRevers()
+{
+	static uint8_t position = 0;
+	checkButtons();
+ 268:	fb de       	rcall	.-522    	; 0x60 <_Z12checkButtonsv>
+	PORTC = 0x00;
+ 26a:	15 ba       	out	0x15, r1	; 21
+	PORTD = 0x00;
+ 26c:	12 ba       	out	0x12, r1	; 18
+	
+	for (uint8_t i = 0; i < 4; i++) {
+ 26e:	20 e0       	ldi	r18, 0x00	; 0
+ 270:	24 30       	cpi	r18, 0x04	; 4
+ 272:	40 f5       	brcc	.+80     	; 0x2c4 <_Z15clockwiseReversv+0x5c>
+		uint8_t led_num = (position - i + 14) % 15;  // +14 -
+ 274:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 278:	90 e0       	ldi	r25, 0x00	; 0
+ 27a:	82 1b       	sub	r24, r18
+ 27c:	91 09       	sbc	r25, r1
+ 27e:	0e 96       	adiw	r24, 0x0e	; 14
+ 280:	6f e0       	ldi	r22, 0x0F	; 15
+ 282:	70 e0       	ldi	r23, 0x00	; 0
+ 284:	49 d0       	rcall	.+146    	; 0x318 <__divmodhi4>
+		
+		if (led_num < 8) {
+ 286:	88 30       	cpi	r24, 0x08	; 8
+ 288:	68 f4       	brcc	.+26     	; 0x2a4 <_Z15clockwiseReversv+0x3c>
+			PORTC |= (1 << led_num);      // PORTC 0-7
+ 28a:	35 b3       	in	r19, 0x15	; 21
+ 28c:	41 e0       	ldi	r20, 0x01	; 1
+ 28e:	50 e0       	ldi	r21, 0x00	; 0
+ 290:	ba 01       	movw	r22, r20
+ 292:	02 c0       	rjmp	.+4      	; 0x298 <_Z15clockwiseReversv+0x30>
+ 294:	66 0f       	add	r22, r22
+ 296:	77 1f       	adc	r23, r23
+ 298:	8a 95       	dec	r24
+ 29a:	e2 f7       	brpl	.-8      	; 0x294 <_Z15clockwiseReversv+0x2c>
+ 29c:	cb 01       	movw	r24, r22
+ 29e:	83 2b       	or	r24, r19
+ 2a0:	85 bb       	out	0x15, r24	; 21
+ 2a2:	0e c0       	rjmp	.+28     	; 0x2c0 <_Z15clockwiseReversv+0x58>
+			} else {
+			PORTD |= (1 << (led_num - 8)); // PORTD 8-13
+ 2a4:	32 b3       	in	r19, 0x12	; 18
+ 2a6:	99 27       	eor	r25, r25
+ 2a8:	08 97       	sbiw	r24, 0x08	; 8
+ 2aa:	41 e0       	ldi	r20, 0x01	; 1
+ 2ac:	50 e0       	ldi	r21, 0x00	; 0
+ 2ae:	ba 01       	movw	r22, r20
+ 2b0:	02 c0       	rjmp	.+4      	; 0x2b6 <_Z15clockwiseReversv+0x4e>
+ 2b2:	66 0f       	add	r22, r22
+ 2b4:	77 1f       	adc	r23, r23
+ 2b6:	8a 95       	dec	r24
+ 2b8:	e2 f7       	brpl	.-8      	; 0x2b2 <_Z15clockwiseReversv+0x4a>
+ 2ba:	cb 01       	movw	r24, r22
+ 2bc:	83 2b       	or	r24, r19
+ 2be:	82 bb       	out	0x12, r24	; 18
+	static uint8_t position = 0;
+	checkButtons();
+	PORTC = 0x00;
+	PORTD = 0x00;
+	
+	for (uint8_t i = 0; i < 4; i++) {
+ 2c0:	2f 5f       	subi	r18, 0xFF	; 255
+ 2c2:	d6 cf       	rjmp	.-84     	; 0x270 <_Z15clockwiseReversv+0x8>
+			} else {
+			PORTD |= (1 << (led_num - 8)); // PORTD 8-13
+		}
+	}
+	
+	position = (position - 1) % 15;
+ 2c4:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 2c8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ca:	01 97       	sbiw	r24, 0x01	; 1
+ 2cc:	6f e0       	ldi	r22, 0x0F	; 15
+ 2ce:	70 e0       	ldi	r23, 0x00	; 0
+ 2d0:	23 d0       	rcall	.+70     	; 0x318 <__divmodhi4>
+ 2d2:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 2d6:	7f e7       	ldi	r23, 0x7F	; 127
+ 2d8:	89 ea       	ldi	r24, 0xA9	; 169
+ 2da:	93 e0       	ldi	r25, 0x03	; 3
+ 2dc:	71 50       	subi	r23, 0x01	; 1
+ 2de:	80 40       	sbci	r24, 0x00	; 0
+ 2e0:	90 40       	sbci	r25, 0x00	; 0
+ 2e2:	e1 f7       	brne	.-8      	; 0x2dc <_Z15clockwiseReversv+0x74>
+ 2e4:	00 c0       	rjmp	.+0      	; 0x2e6 <_Z15clockwiseReversv+0x7e>
+ 2e6:	00 00       	nop
+	_delay_ms(DELAY);
+	checkButtons();
+ 2e8:	bb de       	rcall	.-650    	; 0x60 <_Z12checkButtonsv>
+ 2ea:	08 95       	ret
+
+000002ec <main>:
+volatile bool reverse = false;
+volatile bool mode = false;
+
+int main(void)
+{
+	initPort();
+ 2ec:	ad de       	rcall	.-678    	; 0x48 <_Z8initPortv>
+	while (1)
+	{
+		checkButtons();
+ 2ee:	b8 de       	rcall	.-656    	; 0x60 <_Z12checkButtonsv>
+
+		if (mode == false)
+ 2f0:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <mode>
+ 2f4:	81 11       	cpse	r24, r1
+ 2f6:	08 c0       	rjmp	.+16     	; 0x308 <main+0x1c>
+		{
+			if (reverse == false)
+ 2f8:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <reverse>
+ 2fc:	81 11       	cpse	r24, r1
+ 2fe:	02 c0       	rjmp	.+4      	; 0x304 <main+0x18>
+			{
+				downLight();
+ 300:	d4 de       	rcall	.-600    	; 0xaa <_Z9downLightv>
+ 302:	f5 cf       	rjmp	.-22     	; 0x2ee <main+0x2>
+			}
+			else
+			{
+				upLight();
+ 304:	14 df       	rcall	.-472    	; 0x12e <_Z7upLightv>
+ 306:	f3 cf       	rjmp	.-26     	; 0x2ee <main+0x2>
+			}
+		}
+		else
+		{
+			if (reverse == false)
+ 308:	80 91 63 00 	lds	r24, 0x0063	; 0x800063 <reverse>
+ 30c:	81 11       	cpse	r24, r1
+ 30e:	02 c0       	rjmp	.+4      	; 0x314 <main+0x28>
+			{
+				clockwise();
+ 310:	69 df       	rcall	.-302    	; 0x1e4 <_Z9clockwisev>
+ 312:	ed cf       	rjmp	.-38     	; 0x2ee <main+0x2>
+			}
+			else
+			{
+				clockwiseRevers();
+ 314:	a9 df       	rcall	.-174    	; 0x268 <_Z15clockwiseReversv>
+ 316:	eb cf       	rjmp	.-42     	; 0x2ee <main+0x2>
+
+00000318 <__divmodhi4>:
+ 318:	97 fb       	bst	r25, 7
+ 31a:	07 2e       	mov	r0, r23
+ 31c:	16 f4       	brtc	.+4      	; 0x322 <__divmodhi4+0xa>
+ 31e:	00 94       	com	r0
+ 320:	06 d0       	rcall	.+12     	; 0x32e <__divmodhi4_neg1>
+ 322:	77 fd       	sbrc	r23, 7
+ 324:	08 d0       	rcall	.+16     	; 0x336 <__divmodhi4_neg2>
+ 326:	0b d0       	rcall	.+22     	; 0x33e <__udivmodhi4>
+ 328:	07 fc       	sbrc	r0, 7
+ 32a:	05 d0       	rcall	.+10     	; 0x336 <__divmodhi4_neg2>
+ 32c:	3e f4       	brtc	.+14     	; 0x33c <__divmodhi4_exit>
+
+0000032e <__divmodhi4_neg1>:
+ 32e:	90 95       	com	r25
+ 330:	81 95       	neg	r24
+ 332:	9f 4f       	sbci	r25, 0xFF	; 255
+ 334:	08 95       	ret
+
+00000336 <__divmodhi4_neg2>:
+ 336:	70 95       	com	r23
+ 338:	61 95       	neg	r22
+ 33a:	7f 4f       	sbci	r23, 0xFF	; 255
+
+0000033c <__divmodhi4_exit>:
+ 33c:	08 95       	ret
+
+0000033e <__udivmodhi4>:
+ 33e:	aa 1b       	sub	r26, r26
+ 340:	bb 1b       	sub	r27, r27
+ 342:	51 e1       	ldi	r21, 0x11	; 17
+ 344:	07 c0       	rjmp	.+14     	; 0x354 <__udivmodhi4_ep>
+
+00000346 <__udivmodhi4_loop>:
+ 346:	aa 1f       	adc	r26, r26
+ 348:	bb 1f       	adc	r27, r27
+ 34a:	a6 17       	cp	r26, r22
+ 34c:	b7 07       	cpc	r27, r23
+ 34e:	10 f0       	brcs	.+4      	; 0x354 <__udivmodhi4_ep>
+ 350:	a6 1b       	sub	r26, r22
+ 352:	b7 0b       	sbc	r27, r23
+
+00000354 <__udivmodhi4_ep>:
+ 354:	88 1f       	adc	r24, r24
+ 356:	99 1f       	adc	r25, r25
+ 358:	5a 95       	dec	r21
+ 35a:	a9 f7       	brne	.-22     	; 0x346 <__udivmodhi4_loop>
+ 35c:	80 95       	com	r24
+ 35e:	90 95       	com	r25
+ 360:	bc 01       	movw	r22, r24
+ 362:	cd 01       	movw	r24, r26
+ 364:	08 95       	ret
+
+00000366 <_exit>:
+ 366:	f8 94       	cli
+
+00000368 <__stop_program>:
+ 368:	ff cf       	rjmp	.-2      	; 0x368 <__stop_program>

@@ -1,0 +1,671 @@
+
+rabota 5.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000003a8  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000016  00800060  000003a8  0000043c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000c  00800076  00800076  00000452  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000452  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000484  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  000004c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000007ca  00000000  00000000  000004f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005fb  00000000  00000000  00000cc2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000003f7  00000000  00000000  000012bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000084  00000000  00000000  000016b4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003e9  00000000  00000000  00001738  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000020c  00000000  00000000  00001b21  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  00001d2d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	9f c0       	rjmp	.+318    	; 0x148 <__vector_4>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	30 c0       	rjmp	.+96     	; 0x74 <__vector_9>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e8 ea       	ldi	r30, 0xA8	; 168
+  3a:	f3 e0       	ldi	r31, 0x03	; 3
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	a6 37       	cpi	r26, 0x76	; 118
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	a6 e7       	ldi	r26, 0x76	; 118
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a2 38       	cpi	r26, 0x82	; 130
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	a7 d0       	rcall	.+334    	; 0x1a8 <main>
+  5a:	a4 c1       	rjmp	.+840    	; 0x3a4 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <_Z8read_adch>:
+volatile uint8_t blink_state = 1; // 1 = показывать цифры
+volatile uint16_t blink_counter = 0; // счётчик для частоты мигания
+
+int read_adc(uint8_t channel)
+{
+	ADMUX = (1 << REFS0) | (channel & 0x07);
+  5e:	87 70       	andi	r24, 0x07	; 7
+  60:	80 64       	ori	r24, 0x40	; 64
+  62:	87 b9       	out	0x07, r24	; 7
+	ADCSRA |= (1 << ADSC);
+  64:	86 b1       	in	r24, 0x06	; 6
+  66:	80 64       	ori	r24, 0x40	; 64
+  68:	86 b9       	out	0x06, r24	; 6
+	while(ADCSRA & (1 << ADSC));
+  6a:	36 99       	sbic	0x06, 6	; 6
+  6c:	fe cf       	rjmp	.-4      	; 0x6a <_Z8read_adch+0xc>
+	return ADC;
+  6e:	84 b1       	in	r24, 0x04	; 4
+  70:	95 b1       	in	r25, 0x05	; 5
+}
+  72:	08 95       	ret
+
+00000074 <__vector_9>:
+
+ISR(TIMER0_OVF_vect)
+{
+  74:	1f 92       	push	r1
+  76:	0f 92       	push	r0
+  78:	0f b6       	in	r0, 0x3f	; 63
+  7a:	0f 92       	push	r0
+  7c:	11 24       	eor	r1, r1
+  7e:	8f 93       	push	r24
+  80:	ef 93       	push	r30
+  82:	ff 93       	push	r31
+	PORTB &= 0b00001111;  // обнуляем старшие 4 бита (PB4-PB7)
+  84:	88 b3       	in	r24, 0x18	; 24
+  86:	8f 70       	andi	r24, 0x0F	; 15
+  88:	88 bb       	out	0x18, r24	; 24
+	
+	if(clear_mode && blink_state == 0)
+  8a:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <clear_mode>
+  8e:	88 23       	and	r24, r24
+  90:	31 f0       	breq	.+12     	; 0x9e <__vector_9+0x2a>
+  92:	80 91 61 00 	lds	r24, 0x0061	; 0x800061 <blink_state>
+  96:	88 23       	and	r24, r24
+  98:	21 f0       	breq	.+8      	; 0xa2 <__vector_9+0x2e>
+  9a:	80 e0       	ldi	r24, 0x00	; 0
+  9c:	03 c0       	rjmp	.+6      	; 0xa4 <__vector_9+0x30>
+  9e:	80 e0       	ldi	r24, 0x00	; 0
+  a0:	01 c0       	rjmp	.+2      	; 0xa4 <__vector_9+0x30>
+  a2:	81 e0       	ldi	r24, 0x01	; 1
+  a4:	88 23       	and	r24, r24
+  a6:	19 f0       	breq	.+6      	; 0xae <__vector_9+0x3a>
+	{
+		PORTD = 0xFF;  // Все сегменты выключены
+  a8:	8f ef       	ldi	r24, 0xFF	; 255
+  aa:	82 bb       	out	0x12, r24	; 18
+  ac:	3a c0       	rjmp	.+116    	; 0x122 <__vector_9+0xae>
+	}
+	else
+	{
+		if(n == 1)
+  ae:	80 91 81 00 	lds	r24, 0x0081	; 0x800081 <n>
+  b2:	81 30       	cpi	r24, 0x01	; 1
+  b4:	79 f4       	brne	.+30     	; 0xd4 <__vector_9+0x60>
+		PORTD = digits_table_dp[digits[n]];
+  b6:	e0 91 81 00 	lds	r30, 0x0081	; 0x800081 <n>
+  ba:	f0 e0       	ldi	r31, 0x00	; 0
+  bc:	ee 0f       	add	r30, r30
+  be:	ff 1f       	adc	r31, r31
+  c0:	e7 58       	subi	r30, 0x87	; 135
+  c2:	ff 4f       	sbci	r31, 0xFF	; 255
+  c4:	01 90       	ld	r0, Z+
+  c6:	f0 81       	ld	r31, Z
+  c8:	e0 2d       	mov	r30, r0
+  ca:	ee 59       	subi	r30, 0x9E	; 158
+  cc:	ff 4f       	sbci	r31, 0xFF	; 255
+  ce:	80 81       	ld	r24, Z
+  d0:	82 bb       	out	0x12, r24	; 18
+  d2:	0e c0       	rjmp	.+28     	; 0xf0 <__vector_9+0x7c>
+		else
+		PORTD = digits_table[digits[n]];
+  d4:	e0 91 81 00 	lds	r30, 0x0081	; 0x800081 <n>
+  d8:	f0 e0       	ldi	r31, 0x00	; 0
+  da:	ee 0f       	add	r30, r30
+  dc:	ff 1f       	adc	r31, r31
+  de:	e7 58       	subi	r30, 0x87	; 135
+  e0:	ff 4f       	sbci	r31, 0xFF	; 255
+  e2:	01 90       	ld	r0, Z+
+  e4:	f0 81       	ld	r31, Z
+  e6:	e0 2d       	mov	r30, r0
+  e8:	e4 59       	subi	r30, 0x94	; 148
+  ea:	ff 4f       	sbci	r31, 0xFF	; 255
+  ec:	80 81       	ld	r24, Z
+  ee:	82 bb       	out	0x12, r24	; 18
+		
+		switch(n)
+  f0:	80 91 81 00 	lds	r24, 0x0081	; 0x800081 <n>
+  f4:	81 30       	cpi	r24, 0x01	; 1
+  f6:	51 f0       	breq	.+20     	; 0x10c <__vector_9+0x98>
+  f8:	28 f0       	brcs	.+10     	; 0x104 <__vector_9+0x90>
+  fa:	82 30       	cpi	r24, 0x02	; 2
+  fc:	59 f0       	breq	.+22     	; 0x114 <__vector_9+0xa0>
+  fe:	83 30       	cpi	r24, 0x03	; 3
+ 100:	69 f0       	breq	.+26     	; 0x11c <__vector_9+0xa8>
+ 102:	0f c0       	rjmp	.+30     	; 0x122 <__vector_9+0xae>
+		{
+			case 0: PORTB |= (1 << 4); break;  // включаем PB4 (разряд тысяч)
+ 104:	88 b3       	in	r24, 0x18	; 24
+ 106:	80 61       	ori	r24, 0x10	; 16
+ 108:	88 bb       	out	0x18, r24	; 24
+ 10a:	0b c0       	rjmp	.+22     	; 0x122 <__vector_9+0xae>
+			case 1: PORTB |= (1 << 5); break;  // включаем PB5 (разряд сотен)
+ 10c:	88 b3       	in	r24, 0x18	; 24
+ 10e:	80 62       	ori	r24, 0x20	; 32
+ 110:	88 bb       	out	0x18, r24	; 24
+ 112:	07 c0       	rjmp	.+14     	; 0x122 <__vector_9+0xae>
+			case 2: PORTB |= (1 << 6); break;  // включаем PB6 (разряд десятков)
+ 114:	88 b3       	in	r24, 0x18	; 24
+ 116:	80 64       	ori	r24, 0x40	; 64
+ 118:	88 bb       	out	0x18, r24	; 24
+ 11a:	03 c0       	rjmp	.+6      	; 0x122 <__vector_9+0xae>
+			case 3: PORTB |= (1 << 7); break;  // включаем PB7 (разряд единиц)
+ 11c:	88 b3       	in	r24, 0x18	; 24
+ 11e:	80 68       	ori	r24, 0x80	; 128
+ 120:	88 bb       	out	0x18, r24	; 24
+		}
+	}
+	
+	n++;
+ 122:	80 91 81 00 	lds	r24, 0x0081	; 0x800081 <n>
+ 126:	8f 5f       	subi	r24, 0xFF	; 255
+ 128:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <n>
+	if(n > 3) n = 0; 
+ 12c:	80 91 81 00 	lds	r24, 0x0081	; 0x800081 <n>
+ 130:	84 30       	cpi	r24, 0x04	; 4
+ 132:	10 f0       	brcs	.+4      	; 0x138 <__vector_9+0xc4>
+ 134:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <n>
+}
+ 138:	ff 91       	pop	r31
+ 13a:	ef 91       	pop	r30
+ 13c:	8f 91       	pop	r24
+ 13e:	0f 90       	pop	r0
+ 140:	0f be       	out	0x3f, r0	; 63
+ 142:	0f 90       	pop	r0
+ 144:	1f 90       	pop	r1
+ 146:	18 95       	reti
+
+00000148 <__vector_4>:
+
+ISR(TIMER2_OVF_vect)
+{
+ 148:	1f 92       	push	r1
+ 14a:	0f 92       	push	r0
+ 14c:	0f b6       	in	r0, 0x3f	; 63
+ 14e:	0f 92       	push	r0
+ 150:	11 24       	eor	r1, r1
+ 152:	8f 93       	push	r24
+ 154:	9f 93       	push	r25
+	blink_counter++;
+ 156:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <__data_end>
+ 15a:	90 91 77 00 	lds	r25, 0x0077	; 0x800077 <__data_end+0x1>
+ 15e:	01 96       	adiw	r24, 0x01	; 1
+ 160:	90 93 77 00 	sts	0x0077, r25	; 0x800077 <__data_end+0x1>
+ 164:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <__data_end>
+	
+	// Когда счётчик доходит до 61 - прошла 1 секунда
+	// (30.5 Гц ? 61 ? 0.5 Гц ? 2 = 1 Гц мигания)
+	if(blink_counter >= 61)
+ 168:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <__data_end>
+ 16c:	90 91 77 00 	lds	r25, 0x0077	; 0x800077 <__data_end+0x1>
+ 170:	cd 97       	sbiw	r24, 0x3d	; 61
+ 172:	98 f0       	brcs	.+38     	; 0x19a <__vector_4+0x52>
+	{
+		blink_counter = 0;
+ 174:	10 92 77 00 	sts	0x0077, r1	; 0x800077 <__data_end+0x1>
+ 178:	10 92 76 00 	sts	0x0076, r1	; 0x800076 <__data_end>
+		
+		if(clear_mode)
+ 17c:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <clear_mode>
+ 180:	88 23       	and	r24, r24
+ 182:	41 f0       	breq	.+16     	; 0x194 <__vector_4+0x4c>
+		{
+			// В режиме очистки - переключаем состояние (вкл/выкл)
+			blink_state = !blink_state;
+ 184:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <blink_state>
+ 188:	81 e0       	ldi	r24, 0x01	; 1
+ 18a:	91 11       	cpse	r25, r1
+ 18c:	80 e0       	ldi	r24, 0x00	; 0
+ 18e:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <blink_state>
+ 192:	03 c0       	rjmp	.+6      	; 0x19a <__vector_4+0x52>
+		}
+		else
+		{
+			blink_state = 1;
+ 194:	81 e0       	ldi	r24, 0x01	; 1
+ 196:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <blink_state>
+		}
+	}
+}
+ 19a:	9f 91       	pop	r25
+ 19c:	8f 91       	pop	r24
+ 19e:	0f 90       	pop	r0
+ 1a0:	0f be       	out	0x3f, r0	; 63
+ 1a2:	0f 90       	pop	r0
+ 1a4:	1f 90       	pop	r1
+ 1a6:	18 95       	reti
+
+000001a8 <main>:
+
+int main(void)
+{	
+	DDRD = 0xFF; 
+ 1a8:	8f ef       	ldi	r24, 0xFF	; 255
+ 1aa:	81 bb       	out	0x11, r24	; 17
+	DDRB = 0b11110000;  
+ 1ac:	80 ef       	ldi	r24, 0xF0	; 240
+ 1ae:	87 bb       	out	0x17, r24	; 23
+	DDRC = 0x00;        
+ 1b0:	14 ba       	out	0x14, r1	; 20
+	PORTC |= (1 << 2);  
+ 1b2:	85 b3       	in	r24, 0x15	; 21
+ 1b4:	84 60       	ori	r24, 0x04	; 4
+ 1b6:	85 bb       	out	0x15, r24	; 21
+	
+	// ADEN = 1 - включаем АЦП
+	// ADPS2,ADPS1,ADPS0 = 111 - делитель частоты 128 (125 кГц)
+	ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+ 1b8:	87 e8       	ldi	r24, 0x87	; 135
+ 1ba:	86 b9       	out	0x06, r24	; 6
+	
+	// CS01,CS00 = 11 - делитель 64 (частота 8МГц/64 = 125 кГц)
+	TCCR0 = (1 << CS01) | (1 << CS00);
+ 1bc:	83 e0       	ldi	r24, 0x03	; 3
+ 1be:	83 bf       	out	0x33, r24	; 51
+	TIMSK |= (1 << TOIE0);
+ 1c0:	89 b7       	in	r24, 0x39	; 57
+ 1c2:	81 60       	ori	r24, 0x01	; 1
+ 1c4:	89 bf       	out	0x39, r24	; 57
+	
+	// CS22,CS21,CS20 = 111 - делитель 1024 (частота 8МГц/1024 = 7.8 кГц)
+	TCCR2 = (1 << CS22) | (1 << CS21) | (1 << CS20);
+ 1c6:	87 e0       	ldi	r24, 0x07	; 7
+ 1c8:	85 bd       	out	0x25, r24	; 37
+	// TOIE2 = 1 - разрешаем прерывание по переполнению
+	TIMSK |= (1 << TOIE2);
+ 1ca:	89 b7       	in	r24, 0x39	; 57
+ 1cc:	80 64       	ori	r24, 0x40	; 64
+ 1ce:	89 bf       	out	0x39, r24	; 57
+	sei();  
+ 1d0:	78 94       	sei
+	
+	while(1)
+	{
+		int adc_vin = read_adc(0);   // измеряем PC0 (вход RV1)
+ 1d2:	80 e0       	ldi	r24, 0x00	; 0
+ 1d4:	44 df       	rcall	.-376    	; 0x5e <_Z8read_adch>
+ 1d6:	ec 01       	movw	r28, r24
+		int adc_vref = read_adc(1);  // измеряем PC1 (опорное RV2)
+ 1d8:	81 e0       	ldi	r24, 0x01	; 1
+ 1da:	41 df       	rcall	.-382    	; 0x5e <_Z8read_adch>
+ 1dc:	ac 01       	movw	r20, r24
+		
+		long voltage = 0;
+		if(adc_vref > 0)
+ 1de:	18 16       	cp	r1, r24
+ 1e0:	19 06       	cpc	r1, r25
+ 1e2:	64 f4       	brge	.+24     	; 0x1fc <main+0x54>
+		{
+			// Формула: U = (U_вх / U_оп) ? 5В
+			// В сотых долях вольта (0 = 0.00, 500 = 5.00)
+			voltage = ((long)adc_vin * 50L) / adc_vref;
+ 1e4:	22 e3       	ldi	r18, 0x32	; 50
+ 1e6:	30 e0       	ldi	r19, 0x00	; 0
+ 1e8:	de 01       	movw	r26, r28
+ 1ea:	a8 d0       	rcall	.+336    	; 0x33c <__usmulhisi3>
+ 1ec:	9a 01       	movw	r18, r20
+ 1ee:	55 0f       	add	r21, r21
+ 1f0:	44 0b       	sbc	r20, r20
+ 1f2:	55 0b       	sbc	r21, r21
+ 1f4:	87 d0       	rcall	.+270    	; 0x304 <__divmodsi4>
+ 1f6:	69 01       	movw	r12, r18
+ 1f8:	7a 01       	movw	r14, r20
+ 1fa:	03 c0       	rjmp	.+6      	; 0x202 <__EEPROM_REGION_LENGTH__+0x2>
+	while(1)
+	{
+		int adc_vin = read_adc(0);   // измеряем PC0 (вход RV1)
+		int adc_vref = read_adc(1);  // измеряем PC1 (опорное RV2)
+		
+		long voltage = 0;
+ 1fc:	c1 2c       	mov	r12, r1
+ 1fe:	d1 2c       	mov	r13, r1
+ 200:	76 01       	movw	r14, r12
+			// В сотых долях вольта (0 = 0.00, 500 = 5.00)
+			voltage = ((long)adc_vin * 50L) / adc_vref;
+		}
+		
+		// чтобы не выходило за пределы 999
+		if(voltage < 0) voltage = 0;
+ 202:	ff 20       	and	r15, r15
+ 204:	1c f4       	brge	.+6      	; 0x20c <__EEPROM_REGION_LENGTH__+0xc>
+ 206:	c1 2c       	mov	r12, r1
+ 208:	d1 2c       	mov	r13, r1
+ 20a:	76 01       	movw	r14, r12
+		if(voltage > 999) voltage = 999;
+ 20c:	28 ee       	ldi	r18, 0xE8	; 232
+ 20e:	c2 16       	cp	r12, r18
+ 210:	23 e0       	ldi	r18, 0x03	; 3
+ 212:	d2 06       	cpc	r13, r18
+ 214:	e1 04       	cpc	r14, r1
+ 216:	f1 04       	cpc	r15, r1
+ 218:	44 f0       	brlt	.+16     	; 0x22a <__EEPROM_REGION_LENGTH__+0x2a>
+ 21a:	0f 2e       	mov	r0, r31
+ 21c:	f7 ee       	ldi	r31, 0xE7	; 231
+ 21e:	cf 2e       	mov	r12, r31
+ 220:	f3 e0       	ldi	r31, 0x03	; 3
+ 222:	df 2e       	mov	r13, r31
+ 224:	e1 2c       	mov	r14, r1
+ 226:	f1 2c       	mov	r15, r1
+ 228:	f0 2d       	mov	r31, r0
+		
+		static uint8_t last_button = 1;
+		// Читаем текущее состояние (0 = нажата, 1 = не нажата)
+		uint8_t current_button = (PINC >> 2) & 1;
+ 22a:	83 b3       	in	r24, 0x13	; 19
+ 22c:	90 e0       	ldi	r25, 0x00	; 0
+ 22e:	95 95       	asr	r25
+ 230:	87 95       	ror	r24
+ 232:	95 95       	asr	r25
+ 234:	87 95       	ror	r24
+ 236:	81 70       	andi	r24, 0x01	; 1
+		
+		// Если кнопку только что нажали (было 1, стало 0)
+		if(last_button == 1 && current_button == 0)
+ 238:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 23c:	91 30       	cpi	r25, 0x01	; 1
+ 23e:	31 f5       	brne	.+76     	; 0x28c <__EEPROM_REGION_LENGTH__+0x8c>
+ 240:	81 11       	cpse	r24, r1
+ 242:	24 c0       	rjmp	.+72     	; 0x28c <__EEPROM_REGION_LENGTH__+0x8c>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 244:	3f e7       	ldi	r19, 0x7F	; 127
+ 246:	98 e3       	ldi	r25, 0x38	; 56
+ 248:	21 e0       	ldi	r18, 0x01	; 1
+ 24a:	31 50       	subi	r19, 0x01	; 1
+ 24c:	90 40       	sbci	r25, 0x00	; 0
+ 24e:	20 40       	sbci	r18, 0x00	; 0
+ 250:	e1 f7       	brne	.-8      	; 0x24a <__EEPROM_REGION_LENGTH__+0x4a>
+ 252:	00 c0       	rjmp	.+0      	; 0x254 <__EEPROM_REGION_LENGTH__+0x54>
+ 254:	00 00       	nop
+		{
+			_delay_ms(50);  
+			
+			if(!(PINC & (1 << 2)))  // проверяем, что кнопка всё ещё нажата
+ 256:	9a 99       	sbic	0x13, 2	; 19
+ 258:	19 c0       	rjmp	.+50     	; 0x28c <__EEPROM_REGION_LENGTH__+0x8c>
+			{
+				// Переключаем режим очистки
+				clear_mode = !clear_mode;
+ 25a:	20 91 78 00 	lds	r18, 0x0078	; 0x800078 <clear_mode>
+ 25e:	91 e0       	ldi	r25, 0x01	; 1
+ 260:	21 11       	cpse	r18, r1
+ 262:	90 e0       	ldi	r25, 0x00	; 0
+ 264:	90 93 78 00 	sts	0x0078, r25	; 0x800078 <clear_mode>
+				
+				// Сбрасываем состояние мигания
+				blink_state = 1;
+ 268:	91 e0       	ldi	r25, 0x01	; 1
+ 26a:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <blink_state>
+				blink_counter = 0;
+ 26e:	10 92 77 00 	sts	0x0077, r1	; 0x800077 <__data_end+0x1>
+ 272:	10 92 76 00 	sts	0x0076, r1	; 0x800076 <__data_end>
+				
+				// Ждём, пока кнопку отпустят
+				while(!(PINC & (1 << 2)));
+ 276:	9a 9b       	sbis	0x13, 2	; 19
+ 278:	fe cf       	rjmp	.-4      	; 0x276 <__EEPROM_REGION_LENGTH__+0x76>
+ 27a:	3f e7       	ldi	r19, 0x7F	; 127
+ 27c:	98 e3       	ldi	r25, 0x38	; 56
+ 27e:	21 e0       	ldi	r18, 0x01	; 1
+ 280:	31 50       	subi	r19, 0x01	; 1
+ 282:	90 40       	sbci	r25, 0x00	; 0
+ 284:	20 40       	sbci	r18, 0x00	; 0
+ 286:	e1 f7       	brne	.-8      	; 0x280 <__EEPROM_REGION_LENGTH__+0x80>
+ 288:	00 c0       	rjmp	.+0      	; 0x28a <__EEPROM_REGION_LENGTH__+0x8a>
+ 28a:	00 00       	nop
+				_delay_ms(50); 
+			}
+		}
+		// Запоминаем текущее состояние для следующего раза
+		last_button = current_button;
+ 28c:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+		
+		if(!clear_mode)
+ 290:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <clear_mode>
+ 294:	81 11       	cpse	r24, r1
+ 296:	25 c0       	rjmp	.+74     	; 0x2e2 <__EEPROM_REGION_LENGTH__+0xe2>
+		{
+			// Разбиваем число на отдельные цифры
+			digits[0] = voltage / 100;        
+ 298:	c7 01       	movw	r24, r14
+ 29a:	b6 01       	movw	r22, r12
+ 29c:	24 e6       	ldi	r18, 0x64	; 100
+ 29e:	30 e0       	ldi	r19, 0x00	; 0
+ 2a0:	40 e0       	ldi	r20, 0x00	; 0
+ 2a2:	50 e0       	ldi	r21, 0x00	; 0
+ 2a4:	2f d0       	rcall	.+94     	; 0x304 <__divmodsi4>
+ 2a6:	c9 e7       	ldi	r28, 0x79	; 121
+ 2a8:	d0 e0       	ldi	r29, 0x00	; 0
+ 2aa:	39 83       	std	Y+1, r19	; 0x01
+ 2ac:	28 83       	st	Y, r18
+			digits[1] = (voltage / 10) % 10;  
+ 2ae:	0f 2e       	mov	r0, r31
+ 2b0:	fa e0       	ldi	r31, 0x0A	; 10
+ 2b2:	8f 2e       	mov	r8, r31
+ 2b4:	91 2c       	mov	r9, r1
+ 2b6:	a1 2c       	mov	r10, r1
+ 2b8:	b1 2c       	mov	r11, r1
+ 2ba:	f0 2d       	mov	r31, r0
+ 2bc:	c7 01       	movw	r24, r14
+ 2be:	b6 01       	movw	r22, r12
+ 2c0:	a5 01       	movw	r20, r10
+ 2c2:	94 01       	movw	r18, r8
+ 2c4:	1f d0       	rcall	.+62     	; 0x304 <__divmodsi4>
+ 2c6:	6b 01       	movw	r12, r22
+ 2c8:	7c 01       	movw	r14, r24
+ 2ca:	ca 01       	movw	r24, r20
+ 2cc:	b9 01       	movw	r22, r18
+ 2ce:	a5 01       	movw	r20, r10
+ 2d0:	94 01       	movw	r18, r8
+ 2d2:	18 d0       	rcall	.+48     	; 0x304 <__divmodsi4>
+ 2d4:	7b 83       	std	Y+3, r23	; 0x03
+ 2d6:	6a 83       	std	Y+2, r22	; 0x02
+			digits[2] = voltage % 10;         
+ 2d8:	dd 82       	std	Y+5, r13	; 0x05
+ 2da:	cc 82       	std	Y+4, r12	; 0x04
+			digits[3] = 0;                    
+ 2dc:	1f 82       	std	Y+7, r1	; 0x07
+ 2de:	1e 82       	std	Y+6, r1	; 0x06
+ 2e0:	0a c0       	rjmp	.+20     	; 0x2f6 <__EEPROM_REGION_LENGTH__+0xf6>
+		}
+		else
+		{
+			// Режим очистки: показываем нули на всех разрядах
+			digits[0] = 0;
+ 2e2:	e9 e7       	ldi	r30, 0x79	; 121
+ 2e4:	f0 e0       	ldi	r31, 0x00	; 0
+ 2e6:	11 82       	std	Z+1, r1	; 0x01
+ 2e8:	10 82       	st	Z, r1
+			digits[1] = 0;
+ 2ea:	13 82       	std	Z+3, r1	; 0x03
+ 2ec:	12 82       	std	Z+2, r1	; 0x02
+			digits[2] = 0;
+ 2ee:	15 82       	std	Z+5, r1	; 0x05
+ 2f0:	14 82       	std	Z+4, r1	; 0x04
+			digits[3] = 0;
+ 2f2:	17 82       	std	Z+7, r1	; 0x07
+ 2f4:	16 82       	std	Z+6, r1	; 0x06
+ 2f6:	8f e3       	ldi	r24, 0x3F	; 63
+ 2f8:	9c e9       	ldi	r25, 0x9C	; 156
+ 2fa:	01 97       	sbiw	r24, 0x01	; 1
+ 2fc:	f1 f7       	brne	.-4      	; 0x2fa <__EEPROM_REGION_LENGTH__+0xfa>
+ 2fe:	00 c0       	rjmp	.+0      	; 0x300 <__EEPROM_REGION_LENGTH__+0x100>
+ 300:	00 00       	nop
+ 302:	67 cf       	rjmp	.-306    	; 0x1d2 <main+0x2a>
+
+00000304 <__divmodsi4>:
+ 304:	05 2e       	mov	r0, r21
+ 306:	97 fb       	bst	r25, 7
+ 308:	16 f4       	brtc	.+4      	; 0x30e <__divmodsi4+0xa>
+ 30a:	00 94       	com	r0
+ 30c:	0f d0       	rcall	.+30     	; 0x32c <__negsi2>
+ 30e:	57 fd       	sbrc	r21, 7
+ 310:	05 d0       	rcall	.+10     	; 0x31c <__divmodsi4_neg2>
+ 312:	1a d0       	rcall	.+52     	; 0x348 <__udivmodsi4>
+ 314:	07 fc       	sbrc	r0, 7
+ 316:	02 d0       	rcall	.+4      	; 0x31c <__divmodsi4_neg2>
+ 318:	46 f4       	brtc	.+16     	; 0x32a <__divmodsi4_exit>
+ 31a:	08 c0       	rjmp	.+16     	; 0x32c <__negsi2>
+
+0000031c <__divmodsi4_neg2>:
+ 31c:	50 95       	com	r21
+ 31e:	40 95       	com	r20
+ 320:	30 95       	com	r19
+ 322:	21 95       	neg	r18
+ 324:	3f 4f       	sbci	r19, 0xFF	; 255
+ 326:	4f 4f       	sbci	r20, 0xFF	; 255
+ 328:	5f 4f       	sbci	r21, 0xFF	; 255
+
+0000032a <__divmodsi4_exit>:
+ 32a:	08 95       	ret
+
+0000032c <__negsi2>:
+ 32c:	90 95       	com	r25
+ 32e:	80 95       	com	r24
+ 330:	70 95       	com	r23
+ 332:	61 95       	neg	r22
+ 334:	7f 4f       	sbci	r23, 0xFF	; 255
+ 336:	8f 4f       	sbci	r24, 0xFF	; 255
+ 338:	9f 4f       	sbci	r25, 0xFF	; 255
+ 33a:	08 95       	ret
+
+0000033c <__usmulhisi3>:
+ 33c:	27 d0       	rcall	.+78     	; 0x38c <__umulhisi3>
+
+0000033e <__usmulhisi3_tail>:
+ 33e:	b7 ff       	sbrs	r27, 7
+ 340:	08 95       	ret
+ 342:	82 1b       	sub	r24, r18
+ 344:	93 0b       	sbc	r25, r19
+ 346:	08 95       	ret
+
+00000348 <__udivmodsi4>:
+ 348:	a1 e2       	ldi	r26, 0x21	; 33
+ 34a:	1a 2e       	mov	r1, r26
+ 34c:	aa 1b       	sub	r26, r26
+ 34e:	bb 1b       	sub	r27, r27
+ 350:	fd 01       	movw	r30, r26
+ 352:	0d c0       	rjmp	.+26     	; 0x36e <__udivmodsi4_ep>
+
+00000354 <__udivmodsi4_loop>:
+ 354:	aa 1f       	adc	r26, r26
+ 356:	bb 1f       	adc	r27, r27
+ 358:	ee 1f       	adc	r30, r30
+ 35a:	ff 1f       	adc	r31, r31
+ 35c:	a2 17       	cp	r26, r18
+ 35e:	b3 07       	cpc	r27, r19
+ 360:	e4 07       	cpc	r30, r20
+ 362:	f5 07       	cpc	r31, r21
+ 364:	20 f0       	brcs	.+8      	; 0x36e <__udivmodsi4_ep>
+ 366:	a2 1b       	sub	r26, r18
+ 368:	b3 0b       	sbc	r27, r19
+ 36a:	e4 0b       	sbc	r30, r20
+ 36c:	f5 0b       	sbc	r31, r21
+
+0000036e <__udivmodsi4_ep>:
+ 36e:	66 1f       	adc	r22, r22
+ 370:	77 1f       	adc	r23, r23
+ 372:	88 1f       	adc	r24, r24
+ 374:	99 1f       	adc	r25, r25
+ 376:	1a 94       	dec	r1
+ 378:	69 f7       	brne	.-38     	; 0x354 <__udivmodsi4_loop>
+ 37a:	60 95       	com	r22
+ 37c:	70 95       	com	r23
+ 37e:	80 95       	com	r24
+ 380:	90 95       	com	r25
+ 382:	9b 01       	movw	r18, r22
+ 384:	ac 01       	movw	r20, r24
+ 386:	bd 01       	movw	r22, r26
+ 388:	cf 01       	movw	r24, r30
+ 38a:	08 95       	ret
+
+0000038c <__umulhisi3>:
+ 38c:	a2 9f       	mul	r26, r18
+ 38e:	b0 01       	movw	r22, r0
+ 390:	b3 9f       	mul	r27, r19
+ 392:	c0 01       	movw	r24, r0
+ 394:	a3 9f       	mul	r26, r19
+ 396:	01 d0       	rcall	.+2      	; 0x39a <__umulhisi3+0xe>
+ 398:	b2 9f       	mul	r27, r18
+ 39a:	70 0d       	add	r23, r0
+ 39c:	81 1d       	adc	r24, r1
+ 39e:	11 24       	eor	r1, r1
+ 3a0:	91 1d       	adc	r25, r1
+ 3a2:	08 95       	ret
+
+000003a4 <_exit>:
+ 3a4:	f8 94       	cli
+
+000003a6 <__stop_program>:
+ 3a6:	ff cf       	rjmp	.-2      	; 0x3a6 <__stop_program>
