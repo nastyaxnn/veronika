@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Катки Санкт-Петербурга</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Катки Санкт-Петербурга</h1>
+    </header>
+
+    <nav>
+        <a href="главная.html">Главная</a>
+        <a href="стадионы.html">Стадионы</a>
+        <a href="бассейны.html">Бассейны</a>
+        <a href="фитнесцентры.html">Фитнес-центры</a>
+        <a href="катки.html">Катки</a>
+        <a href="анкета.html">Анкета</a>
+    </nav>
+
+    <main>
+        <section class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Каток</th>
+                        <th>Район</th>
+                        <th>Адрес</th>
+                        <th>Цена (руб.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Каток "Парнас"</td>
+                        <td>Выборгский</td>
+                        <td>6-1 Верхний переулок, 126</td>
+                        <td>200 - 300</td>
+                    </tr>
+                    <tr>
+                        <td>Озерки</td>
+                        <td>Выборгский</td>
+                        <td>Большая Озерная улица, 56</td>
+                        <td>200 - 300</td>
+                    </tr>
+                    <tr>
+                        <td>Iceberg</td>
+                        <td>Приморский</td>
+                        <td>Пр. Стачек, 45к2</td>
+                        <td>300</td>
+                    </tr>
+                    <tr>
+                        <td>Каток в Удельном парке</td>
+                        <td>Приморский</td>
+                        <td>Ул. Аккуратова, 7а</td>
+                        <td>100 - 300</td>
+                    </tr>
+					<tr>
+						<td>Каток "Аврора"</td>
+						<td>Калининский</td>
+						<td>Ул. Верности, 10</td>
+						<td>250 - 350</td>
+					</tr>
+					<tr>
+						<td>Ледовый дворец</td>
+						<td>Невский</td>
+						<td>Пр. Пятилеток, 1</td>
+						<td>300 - 500</td>
+					</tr>
+					<tr>
+						<td>Каток "Северный"</td>
+						<td>Выборгский</td>
+						<td>Пр. Просвещения, 80</td>
+						<td>200 - 400</td>
+					</tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+	<button id="scroll-top-btn" aria-label="Наверх">↑ Наверх</button>
+	<button id="scroll-bottom-btn" aria-label="Вниз">↓ Вниз</button>
+
+<script>
+  const btnTop = document.getElementById('scroll-top-btn');
+  const btnBottom = document.getElementById('scroll-bottom-btn');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      btnTop.style.display = 'block';
+      btnBottom.style.display = 'block';
+    } else {
+      btnTop.style.display = 'none';
+      btnBottom.style.display = 'none';
+    }
+  });
+
+  btnTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  btnBottom.addEventListener('click', () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  });
+</script>
+   <footer>
+        <div class="marquee">
+            <span>Сиволап Анастасия ИП-23-3</span>
+			<p>&copy; 2026 Спортивные объекты Санкт-Петербурга</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практическая работа №8.2 - Вариант А: Тест "Несколько из нескольких"</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .info-block {
+            background: #f0f4ff;
+            border-left: 5px solid #667eea;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-line;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .product-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: scale(1.02);
+        }
+
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-warning {
+            background: #ed8936;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #dd6b20;
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .test-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .question-block {
+            background: #f7f9fc;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option:hover {
+            background: #e8edf5;
+        }
+
+        .option input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .result-box {
+            background: #f0f4ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result-comment {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .btn-check {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-check:hover {
+            background: #5a67d8;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📚 Практическая работа № 8.2</h1>
+        <p>Тема: Классы в JavaScript | Вариант А — Тестовые вопросы «Несколько из нескольких»</p>
+    </div>
+<h2>Вариант D — Товар </h2>
+<div id="products" class="grid"></div>
+    <div class="info-block">
+        ═══════════════════════════════════════════════════════════════<br>
+        // Практическая работа №8.2<br>
+        // Тема: Классы в JavaScript<br>
+        // Вариант А: тестовые вопросы «Несколько из нескольких»<br>
+        // Реализован класс TestQuestion с поддержкой множественного выбора<br>
+        // Создано 3 объекта класса (вопросы по JavaScript)<br>
+        // Методы: проверка ответов, подсчет баллов, вывод результата<br>
+        // На странице отображаются объекты класса и форма для прохождения теста<br>
+        // Проверка правильности ответов и вывод результата<br>
+        ═══════════════════════════════════════════════════════════════
+    </div>
+
+    <div id="objectsContainer" class="products-grid"></div>
+
+    <div class="test-section">
+        <h2>📝 Пройдите тест "Несколько из нескольких"</h2>
+        <div id="testQuestionsContainer"></div>
+        <button class="btn-check" id="checkTestBtn">✅ Проверить ответы</button>
+        <div id="testResult" class="result-box">
+            <div class="result-score" id="resultScore">— / 3</div>
+            <div class="result-comment" id="resultComment">Нажмите "Проверить ответы" для получения результата</div>
+        </div>
+    </div>
+    <footer>
+        🧪 Разработано в рамках дисциплины | Класс TestQuestion — множественный выбор
+    </footer>
+</div>
+
+<script>
+    class TestQuestion {
+        constructor(questionText, options, correctAnswers, points = 1) {
+            this.questionText = questionText;      
+            this.options = options;                
+            this.correctAnswers = correctAnswers;  
+            this.points = points;                  
+        }
+
+        checkAnswer(selectedAnswers) {
+            if (!selectedAnswers || selectedAnswers.length === 0) return false;
+            if (selectedAnswers.length !== this.correctAnswers.length) return false;
+            const sortedSelected = [...selectedAnswers].sort();
+            const sortedCorrect = [...this.correctAnswers].sort();
+            for (let i = 0; i < sortedSelected.length; i++) {
+                if (sortedSelected[i] !== sortedCorrect[i]) return false;
+            }
+            return true;
+        }
+
+        getPoints(selectedAnswers) {
+            return this.checkAnswer(selectedAnswers) ? this.points : 0;
+        }
+
+        getOptionLetter(index) {
+            return String.fromCharCode(65 + index);
+        }
+    }
+
+class Product {
+    constructor(price, image, quantity) {
+      this.price = Number(price);      
+      this.image = String(image);      
+      this.quantity = Number(quantity);
+    }
+    cost() { 
+      return this.price * this.quantity;
+    }
+    discount(percent) { 
+      const p = Math.min(100, Math.max(0, Number(percent)));
+      return this.cost() * (1 - p / 100);
+    }
+    setQuantity(q) { this.quantity = Math.max(0, Number(q)); }
+  }
+  const товары = [
+    new Product(1990, "data:image/jpeg;base64,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", 2),
+    new Product(499,  "data:image/jpeg;base64,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", 5),
+    new Product(12990,"data:image/jpeg;base64,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", 1),
+  ];
+  function render() {
+    const root = document.getElementById("products");
+    root.innerHTML = "";
+    товары.forEach((t, i) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src="${t.image}" alt="Товар ${i+1}">
+        <div class="p">
+          <div class="row"><b>Товар ${i+1}</b><span class="muted">x${t.quantity}</span></div>
+          <div class="row"><span class="muted">Цена:</span><span>${t.price} ₽</span></div>
+          <div class="row"><span class="muted">Стоимость:</span><span><b>${t.cost()} ₽</b></span></div>
+          <div class="row"><span class="muted">-10%:</span><span>${Math.round(t.discount(10))} ₽</span></div>
+          <button data-i="${i}">+1 шт</button>
+        </div>
+      `;
+      card.querySelector("button").addEventListener("click", (e) => {
+        const idx = Number(e.target.dataset.i);
+        товары[idx].setQuantity(товары[idx].quantity + 1);
+        render();
+      });
+      root.appendChild(card);
+    });
+  }
+  render();
+   console.log("Товары:", товары);
+  console.log("Стоимость 1-го:", товары[0].cost());
+  console.log("Со скидкой 15%:", товары[0].discount(15));
+    const questions = [
+        new TestQuestion(
+            "Какие из следующих языков являются языками программирования?",
+            ["HTML", "CSS", "JavaScript", "Python", "SQL"],
+            ["JavaScript", "Python"],
+            1
+        ),
+        new TestQuestion(
+            "Какие методы относятся к работе с массивами в JavaScript?",
+            ["push()", "toUpperCase()", "pop()", "substring()", "map()"],
+            ["push()", "pop()", "map()"],
+            1
+        ),
+        new TestQuestion(
+            "Какие из этих значений являются ложными (falsy) в JavaScript?",
+            ["0", "'' (пустая строка)", "null", "undefined", "[] (пустой массив)"],
+            ["0", "'' (пустая строка)", "null", "undefined"],
+            1
+        )
+    ];
+
+    function displayObjects() {
+        const container = document.getElementById('objectsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        questions.forEach((question, idx) => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'product-icon';
+            iconDiv.innerHTML = '❓';
+            
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'product-info';
+            
+            const title = document.createElement('div');
+            title.className = 'product-title';
+            title.innerText = `Вопрос ${idx + 1}`;
+            
+            const questionDetail = document.createElement('div');
+            questionDetail.className = 'product-detail';
+            questionDetail.innerHTML = `<strong>Текст:</strong> ${question.questionText}`;
+            
+            const optionsDetail = document.createElement('div');
+            optionsDetail.className = 'product-detail';
+            let optionsStr = '';
+            question.options.forEach((opt, optIdx) => {
+                optionsStr += `${question.getOptionLetter(optIdx)}. ${opt}  `;
+            });
+            optionsDetail.innerHTML = `<strong>Варианты:</strong> ${optionsStr}`;
+            
+            const correctDetail = document.createElement('div');
+            correctDetail.className = 'product-detail';
+            let correctStr = '';
+            question.correctAnswers.forEach((ans, ansIdx) => {
+                const optIndex = question.options.indexOf(ans);
+                correctStr += (ansIdx === 0 ? '' : ', ') + question.getOptionLetter(optIndex) + '. ' + ans;
+            });
+            correctDetail.innerHTML = `<strong>✅ Правильные ответы:</strong> ${correctStr}`;
+            
+            const pointsDetail = document.createElement('div');
+            pointsDetail.className = 'product-detail';
+            pointsDetail.innerHTML = `<strong>Баллов:</strong> ${question.points}`;
+            
+            infoDiv.appendChild(title);
+            infoDiv.appendChild(questionDetail);
+            infoDiv.appendChild(optionsDetail);
+            infoDiv.appendChild(correctDetail);
+            infoDiv.appendChild(pointsDetail);
+            
+            card.appendChild(iconDiv);
+            card.appendChild(infoDiv);
+            container.appendChild(card);
+        });
+        
+        const extraCard = document.createElement('div');
+        extraCard.className = 'product-card';
+        extraCard.innerHTML = `
+            <div class="product-icon">📊</div>
+            <div class="product-info">
+                <div class="product-title">Информация о тесте</div>
+                <div class="product-detail"><strong>Тип вопросов:</strong> Несколько из нескольких</div>
+                <div class="product-detail"><strong>Количество вопросов:</strong> ${questions.length}</div>
+                <div class="product-detail"><strong>Максимальный балл:</strong> ${questions.reduce((sum, q) => sum + q.points, 0)}</div>
+                <div class="product-detail"><strong>Класс:</strong> TestQuestion</div>
+            </div>
+        `;
+        container.appendChild(extraCard);
+    }
+
+    function renderTestForm() {
+        const container = document.getElementById('testQuestionsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        questions.forEach((question, qIdx) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-block';
+            questionDiv.setAttribute('data-qidx', qIdx);
+            
+            const questionTextElem = document.createElement('div');
+            questionTextElem.className = 'question-text';
+            questionTextElem.innerText = `${qIdx + 1}. ${question.questionText} (выберите все правильные варианты)`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+            
+            question.options.forEach((option, optIdx) => {
+                const optionId = `q${qIdx}_opt${optIdx}`;
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = optionId;
+                checkbox.value = option;
+                checkbox.setAttribute('data-qidx', qIdx);
+                checkbox.setAttribute('data-opt', option);
+                
+                const label = document.createElement('label');
+                label.htmlFor = optionId;
+                label.innerText = `${question.getOptionLetter(optIdx)}. ${option}`;
+                
+                optionDiv.appendChild(checkbox);
+                optionDiv.appendChild(label);
+                optionsDiv.appendChild(optionDiv);
+            });
+            
+            questionDiv.appendChild(questionTextElem);
+            questionDiv.appendChild(optionsDiv);
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function getSelectedAnswers() {
+        const selected = [];
+        for (let qIdx = 0; qIdx < questions.length; qIdx++) {
+            const selectedForQuestion = [];
+            const checkboxes = document.querySelectorAll(`input[type="checkbox"][data-qidx="${qIdx}"]`);
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selectedForQuestion.push(cb.value);
+                }
+            });
+            selected.push(selectedForQuestion);
+        }
+        return selected;
+    }
+
+    function checkTest() {
+        const selectedAnswers = getSelectedAnswers();
+        let totalPoints = 0;
+        let maxPoints = 0;
+        const results = [];
+        
+        for (let i = 0; i < questions.length; i++) {
+            const question = questions[i];
+            maxPoints += question.points;
+            const userAnswers = selectedAnswers[i];
+            const isCorrect = question.checkAnswer(userAnswers);
+            const pointsEarned = isCorrect ? question.points : 0;
+            totalPoints += pointsEarned;
+            
+            let correctAnswersStr = '';
+            question.correctAnswers.forEach((ans, idx) => {
+                const optIndex = question.options.indexOf(ans);
+                correctAnswersStr += (idx === 0 ? '' : ', ') + question.getOptionLetter(optIndex) + '. ' + ans;
+            });
+            
+            let userAnswersStr = userAnswers.length === 0 ? 'нет ответов' : '';
+            userAnswers.forEach((ans, idx) => {
+                const optIndex = question.options.indexOf(ans);
+                userAnswersStr += (idx === 0 ? '' : ', ') + (optIndex !== -1 ? question.getOptionLetter(optIndex) + '. ' + ans : ans);
+            });
+            
+            results.push({
+                questionNum: i + 1,
+                questionText: question.questionText,
+                isCorrect: isCorrect,
+                pointsEarned: pointsEarned,
+                maxPoints: question.points,
+                correctAnswers: correctAnswersStr,
+                userAnswers: userAnswersStr
+            });
+        }
+        
+        const percentage = maxPoints > 0 ? (totalPoints / maxPoints) * 100 : 0;
+        let grade = '';
+        let comment = '';
+        
+        if (percentage === 100) {
+            grade = 'Отлично! 🎉';
+            comment = 'Великолепный результат! Вы отлично знаете материал.';
+        } else if (percentage >= 66) {
+            grade = 'Хорошо 👍';
+            comment = 'Хороший результат, но есть над чем поработать.';
+        } else if (percentage >= 33) {
+            grade = 'Удовлетворительно 📖';
+            comment = 'Неплохо, но стоит повторить тему.';
+        } else {
+            grade = 'Неудовлетворительно ❌';
+            comment = 'Рекомендуется изучить материал заново и попробовать еще раз.';
+        }
+        
+        const resultDiv = document.getElementById('resultScore');
+        const commentDiv = document.getElementById('resultComment');
+        if (resultDiv) {
+            resultDiv.innerHTML = `${totalPoints} / ${maxPoints} баллов (${Math.round(percentage)}%)<br><span style="font-size: 1rem;">${grade}</span>`;
+        }
+        if (commentDiv) {
+            let detailsHtml = `<strong>${comment}</strong><br><br>`;
+            detailsHtml += `<div style="text-align: left; font-size: 0.9rem;">`;
+            results.forEach(res => {
+                const status = res.isCorrect ? '✅' : '❌';
+                detailsHtml += `<p><strong>${status} Вопрос ${res.questionNum}:</strong> ${res.questionText}<br>`;
+                detailsHtml += `<span style="color: #2c7da0;">Правильные ответы: ${res.correctAnswers}</span><br>`;
+                detailsHtml += `<span style="color: ${res.isCorrect ? '#38a169' : '#e53e3e'};">Ваши ответы: ${res.userAnswers}</span><br>`;
+                detailsHtml += `Баллов: ${res.pointsEarned}/${res.maxPoints}</p>`;
+            });
+            detailsHtml += `</div>`;
+            commentDiv.innerHTML = detailsHtml;
+        }
+        
+        console.log('===== РЕЗУЛЬТАТ ПРОВЕРКИ ТЕСТА =====');
+        console.log(`Всего баллов: ${totalPoints} из ${maxPoints}`);
+        console.log(`Процент: ${Math.round(percentage)}%`);
+        results.forEach(res => {
+            console.log(`${res.isCorrect ? '✓' : '✗'} Вопрос ${res.questionNum}: ${res.pointsEarned}/${res.maxPoints} баллов`);
+        });
+    }
+
+    function demonstrateAdditionalObjects() {
+        const extraQuestions = [
+            new TestQuestion(
+                "Какие операторы относятся к операторам сравнения в JS?",
+                ["==", "=", "===", "!==", "&&"],
+                ["==", "===", "!=="],
+                1
+            ),
+            new TestQuestion(
+                "Какие из этих методов изменяют исходный массив?",
+                ["push()", "map()", "filter()", "sort()", "reverse()"],
+                ["push()", "sort()", "reverse()"],
+                1
+            )
+        ];
+        
+        console.log('===== ДОПОЛНИТЕЛЬНЫЕ ОБЪЕКТЫ КЛАССА TestQuestion =====');
+        extraQuestions.forEach((q, idx) => {
+            console.log(`\nОбъект ${idx + 1}:`);
+            console.log(`  Вопрос: ${q.questionText}`);
+            console.log(`  Варианты: ${q.options.join(', ')}`);
+            console.log(`  Правильные ответы: ${q.correctAnswers.join(', ')}`);
+            console.log(`  Баллов: ${q.points}`);
+        });
+        
+        const testCheck = extraQuestions[0].checkAnswer(["==", "==="]);
+        console.log(`\nПроверка ответов для дополнительного вопроса 1: выбранные ["==", "==="] -> ${testCheck ? 'Верно' : 'Неверно'}`);
+        const testCheck2 = extraQuestions[0].checkAnswer(["==", "===", "!=="]);
+        console.log(`Проверка ответов: ["==", "===", "!=="] -> ${testCheck2 ? 'Верно' : 'Неверно'}`);
+        
+        const pointsEarned = extraQuestions[0].getPoints(["==", "===", "!=="]);
+        console.log(`Баллов за вопрос: ${pointsEarned}`);
+    }
+
+    function init() {
+        displayObjects();
+        renderTestForm();
+        
+        const checkBtn = document.getElementById('checkTestBtn');
+        if (checkBtn) {
+            checkBtn.addEventListener('click', checkTest);
+        }
+        
+        demonstrateAdditionalObjects();
+        
+        console.log('===== ОБЪЕКТЫ КЛАССА TestQuestion, СОЗДАННЫЕ НА СТРАНИЦЕ =====');
+        questions.forEach((q, idx) => {
+            console.log(`\nОбъект ${idx + 1}:`);
+            console.log(`  Вопрос: ${q.questionText}`);
+            console.log(`  Варианты: ${q.options}`);
+            console.log(`  Правильные ответы: ${q.correctAnswers}`);
+            console.log(`  Метод checkAnswer(['JavaScript', 'Python']) для 1 вопроса: ${q.checkAnswer(['JavaScript', 'Python'])}`);
+            console.log(`  Метод getPoints(): ${q.getPoints(q.correctAnswers)} баллов (макс)`);
+        });
+        
+        const totalMaxPoints = questions.reduce((sum, q) => sum + q.points, 0);
+        console.log(`\n===== ВСЕГО СОЗДАНО ОБЪЕКТОВ: ${questions.length} основных + 2 дополнительных в консоли =====`);
+        console.log(`Максимальный балл за тест: ${totalMaxPoints}`);
+        console.log(`Тип теста: "Несколько из нескольких" (вариант А)`);
+    }
+    
+    init();
+</script>
+</body>
+</html>

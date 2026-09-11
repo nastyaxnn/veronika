@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>Опрос студентов</title>
+	<meta name="description" content="">
+	<style>
+	body {
+	font-family:Arial, sant-serif;
+	}
+	
+	table {
+	width:900px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	}
+	
+	td {
+	border: 1px solid black;
+	padding: 10px;
+	vertical-align: top;
+	}
+	
+	h2 {
+	text-align: center;
+	}
+	</style>
+	
+</head>
+
+<body>
+
+<h2>*-- Вопрос универсальный --*</h2>
+<table align="center">
+<tr>
+<td width="50%">
+<h3>Система опроса студентов<h3>
+
+<form>
+
+<b>Вопрос №1</b><br>
+Как вы оцениваете сложность контрольной работы?<br>
+<input type="radio" name "q1">Сложно<br>
+<input type="radio" name "q1">Нормально<br>
+<input type="radio" name "q1">Просто<br><br>
+
+<b>Вопрос №2</b><br>
+Считаете ли вы наши вопросы интересными?<br>
+<input type="radio" name "q2">Да<br>
+<input type="radio" name "q2">Нет<br>
+<input type="radio" name "q2">Да, но не все<br><br>
+
+</form>
+
+<p>Created by Diggers co. 2021</p>
+
+</td>
+
+<td width= "50%">
+
+<h3>Пояснения к работе</h3>
+<p>
+Система опроса студентов преследует следующие цели:
+<ol>
+<li>Установить сложность контрольной работы</li>
+<li>Предоставить информацию для разработчиков о качестве проделанной работы</li>
+<li>Указать сведения об ошибках при разработке</li>
+</ol>
+</p>
+
+<h4>Отчет:<h4>
+
+<form target="result">
+
+<textarea
+name="answer"
+rows="7"
+cols="50"
+required
+pattern="[A-Za-z0-9. ] {150,300}"
+placeholder="Only English letters, numbers, dot and space. 150-300 characters.">
+</textarea>
+
+<br><br>
+
+<input type="submit" value="Отправить">
+<input type="reset" value="Reset">
+</form>
+
+<iframe name= "result" width= "100%" height= "200"></iframe>
+
+<p>Created by Diggers co. 2021</p>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

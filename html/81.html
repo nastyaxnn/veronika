@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практическая работа №8.1: Основы JavaScript</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            padding: 20px 25px;
+            transition: all 0.2s;
+            border-left: 5px solid #007bff;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+        }
+        .card h3 {
+            margin: 10px 0 15px;
+            color: #495057;
+            font-size: 1.2rem;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+        input, select, button {
+            padding: 8px 12px;
+            margin: 5px 5px 5px 0;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output-text {
+            background-color: #f8f9fa;
+            border-left: 3px solid #28a745;
+            padding: 10px;
+            margin-top: 12px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        hr {
+            margin: 20px 0;
+        }
+        .badge {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="text-align:center;">Практическая работа №8.1<br>Основы JavaScript, объекты клиентских приложений</h1>
+
+    <!-- ЗАДАНИЕ 1 -->
+    <div class="card" id="task1">
+        <h2>Задание 1: Преобразование в прописные буквы</h2>
+        <input type="text" id="myText" placeholder="Введите текст">
+        <button id="convertBtn">Convert</button>
+        <div class="output-text" id="result1"></div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 -->
+    <div class="card" id="task2">
+        <h2>Задание 2: Цвет текста по времени суток</h2>
+        <div id="timeColorText">Зеленый текст при загрузке (а затем цвет по времени)</div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 -->
+    <div class="card" id="task3">
+        <h2>Задание 3: Сложение двух чисел</h2>
+        <input type="number" id="num1" placeholder="Число 1">
+        <input type="number" id="num2" placeholder="Число 2">
+        <button id="sumBtn">Сложить</button>
+        <input type="text" id="sumResult" placeholder="Результат" readonly>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 -->
+    <div class="card" id="task4">
+        <h2>Задание 4: Определение браузера</h2>
+        <div id="browserInfo" class="output-text"></div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 -->
+    <div class="card" id="task5">
+        <h2>Задание 5: Вывод текста выбранным цветом</h2>
+        <button id="askColorBtn">Запросить цвет</button>
+        <div id="coloredText" style="font-size: 1.2rem; margin-top: 12px;">Этот текст изменит цвет</div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 -->
+    <div class="card" id="task6">
+        <h2>Задание 6: Текущее время и дата</h2>
+        <button id="showTimeBtn">Показать время и дату</button>
+        <input type="text" id="timeField" readonly style="width: 300px;">
+    </div>
+
+    <!-- ЗАДАНИЕ 7 -->
+    <div class="card" id="task7">
+        <h2>Задание 7: Флажки + выпадающий список</h2>
+        <div>
+            <label><input type="checkbox" value="Флажок 1" class="chk"> Флажок 1</label>
+            <label><input type="checkbox" value="Флажок 2" class="chk"> Флажок 2</label>
+            <label><input type="checkbox" value="Флажок 3" class="chk"> Флажок 3</label>
+        </div>
+        <select id="selectList">
+            <option value="Элемент списка 1">Элемент списка 1</option>
+            <option value="Элемент списка 2">Элемент списка 2</option>
+            <option value="Элемент списка 3">Элемент списка 3</option>
+        </select>
+        <button id="showSelectionBtn">Показать выбор</button>
+        <input type="text" id="selectionOutput" readonly style="width: 100%;">
+    </div>
+
+    <!-- ЗАДАНИЕ 8 -->
+    <div class="card" id="task8">
+        <h2>Задание 8: Переключатели (radio) — номер выбранного</h2>
+        <label><input type="radio" name="radioGroup" value="1"> №1</label>
+        <label><input type="radio" name="radioGroup" value="2"> №2</label>
+        <label><input type="radio" name="radioGroup" value="3"> №3</label>
+        <button id="getRadioBtn">Показать номер</button>
+        <input type="text" id="radioOutput" readonly>
+    </div>
+</div>
+
+<script>
+    // Все обработчики после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        // ЗАДАНИЕ 1
+        document.getElementById('convertBtn').onclick = () => {
+            let input = document.getElementById('myText').value;
+            document.getElementById('result1').innerText = input.toUpperCase();
+        };
+
+        // ЗАДАНИЕ 2
+        let timeDiv = document.getElementById('timeColorText');
+        timeDiv.innerText = "Текст в зависимости от времени суток (загружено)";
+        timeDiv.style.color = "green";
+        let hours = new Date().getHours();
+        if (hours >= 6 && hours < 12) timeDiv.style.color = "red";
+        else if (hours >= 12 && hours < 18) timeDiv.style.color = "yellow";
+        else if (hours >= 18 && hours < 24) timeDiv.style.color = "red";
+        else timeDiv.style.color = "blue";
+
+        // ЗАДАНИЕ 3
+        document.getElementById('sumBtn').onclick = () => {
+            let a = parseFloat(document.getElementById('num1').value) || 0;
+            let b = parseFloat(document.getElementById('num2').value) || 0;
+            document.getElementById('sumResult').value = a + b;
+        };
+
+        // ЗАДАНИЕ 4
+        let userAgent = navigator.userAgent;
+        let browserName = "Неизвестный";
+        if (userAgent.includes("Chrome")) browserName = "Google Chrome";
+        else if (userAgent.includes("Firefox")) browserName = "Mozilla Firefox";
+        else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) browserName = "Safari";
+        else if (userAgent.includes("Edge")) browserName = "Microsoft Edge";
+        document.getElementById('browserInfo').innerText = `Ваш браузер: ${browserName}`;
+
+        // ЗАДАНИЕ 5
+        document.getElementById('askColorBtn').onclick = () => {
+            let color = prompt("Введите цвет (имя или #hex):", "red");
+            if (color) document.getElementById('coloredText').style.color = color;
+        };
+
+        // ЗАДАНИЕ 6
+        document.getElementById('showTimeBtn').onclick = () => {
+            let now = new Date();
+            document.getElementById('timeField').value = now.toLocaleString();
+        };
+
+        // ЗАДАНИЕ 7
+        document.getElementById('showSelectionBtn').onclick = () => {
+            let checkboxes = document.querySelectorAll('.chk:checked');
+            let selectedCheck = Array.from(checkboxes).map(cb => cb.value).join(', ');
+            let selectedOption = document.getElementById('selectList').value;
+            document.getElementById('selectionOutput').value = `Флажки: ${selectedCheck || 'нет'} | Список: ${selectedOption}`;
+        };
+
+        // ЗАДАНИЕ 8
+        document.getElementById('getRadioBtn').onclick = () => {
+            let radios = document.getElementsByName('radioGroup');
+            let selected = null;
+            for (let r of radios) if (r.checked) { selected = r.value; break; }
+            document.getElementById('radioOutput').value = selected ? `Выбран №${selected}` : "Ничего не выбрано";
+        };
+
+        // ЗАДАНИЕ 9
+        document.getElementById('calcGradeBtn').onclick = () => {
+            let frame = document.querySelector('input[name="frameMark"]:checked');
+            let formM = document.querySelector('input[name="formMark"]:checked');
+            let wish = document.querySelector('input[name="finalWish"]:checked');
+            if (!frame || !formM) { document.getElementById('gradeResult').innerHTML = "Выберите оценки за контрольные"; return; }
+            let avg = (parseInt(frame.value) + parseInt(formM.value)) / 2;
+            let wishVal = wish ? wish.value : "any";
+            let compare = (avg == wishVal) ? "== Оценка3" : "!= Оценка3";
+            document.getElementById('gradeResult').innerHTML = `((Оценка1+Оценка2)/2 = ${avg}) ${compare}`;
+        };
+
+        // ЗАДАНИЕ 10 валидация
+        document.getElementById('sendFormBtn').onclick = () => {
+            let fio = document.getElementById('fullname').value.trim();
+            let grp = document.getElementById('groupnum').value.trim();
+            if (fio === "" || grp === "") document.getElementById('validationMsg').innerHTML = "Вы не заполнили обязательные поля -- ФИО и № группы";
+            else document.getElementById('validationMsg').innerHTML = `Спасибо, ${fio}, группа ${grp}, специальность ${document.getElementById('specialty').value}`;
+        };
+        document.getElementById('clearFormBtn').onclick = () => { document.getElementById('fullname').value = ""; document.getElementById('groupnum').value = ""; document.getElementById('validationMsg').innerHTML = ""; };
+
+        // ЗАДАНИЕ 11
+        document.getElementById('alertBtn').onclick = () => { alert("Предупреждение!"); document.getElementById('dialogResult').value = "Предупреждение показано"; };
+        document.getElementById('confirmBtn').onclick = () => { let res = confirm("Подтвердите действие"); document.getElementById('dialogResult').value = res ? "Подтверждено" : "Отменено"; };
+        document.getElementById('promptBtn').onclick = () => { let val = prompt("Введите строку:"); document.getElementById('dialogResult').value = val || "ничего не введено"; };
+
+        // ЗАДАНИЕ 12
+        let sampleArray = ["Элемент A", "Элемент B", 42, "JavaScript", {name:"объект"}];
+        document.getElementById('showArrayBtn').onclick = () => {
+            document.getElementById('arrayOutput').innerHTML = sampleArray.map((item, idx)=> `${idx+1}: ${JSON.stringify(item)}`).join("<br>");
+        };
+
+        // ЗАДАНИЕ 13 пароль
+        document.getElementById('askPasswordBtn').onclick = () => {
+            let pwd = prompt("Введите пароль:");
+            if (pwd === "secret123") document.getElementById('passwordMsg').innerHTML = "Пароль верен! <a href='#' onclick='alert(\"Секретная страница\")'>Секретная страница (имитация)</a>";
+            else document.getElementById('passwordMsg').innerHTML = "Ошибочная страница: неверный пароль";
+        };
+    });
+</script>
+</body>
+</html>

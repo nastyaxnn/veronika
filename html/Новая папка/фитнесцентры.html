@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фитнес-центры Санкт-Петербурга</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Фитнес-центры Санкт-Петербурга</h1>
+    </header>
+
+    <nav>
+        <a href="главная.html">Главная</a>
+        <a href="стадионы.html">Стадионы</a>
+        <a href="бассейны.html">Бассейны</a>
+        <a href="фитнесцентры.html">Фитнес-центры</a>
+        <a href="катки.html">Катки</a>
+        <a href="анкета.html">Анкета</a>
+    </nav>
+
+    <main>
+        <section class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Фитнес-центр</th>
+                        <th>Метро</th>
+                        <th>Адрес</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ForceFit</td>
+                        <td>Садовая</td>
+                        <td>Ул. Садовая, 54</td>
+                    </tr>
+                    <tr>
+                        <td>Нептун</td>
+                        <td>Звенигородская</td>
+                        <td>Ул. Бумажная, 9</td>
+                    </tr>
+                    <tr>
+                        <td>СШ "Дельфин"</td>
+                        <td>Садовая</td>
+                        <td>Ул. Союза Печатников, 5/Б</td>
+                    </tr>
+                    <tr>
+                        <td>Fresh Fitness</td>
+                        <td>Озерки</td>
+                        <td>Выборгское шоссе, 6</td>
+                    </tr>
+                    <tr>
+                        <td>ВСЕМИФИТНЕС</td>
+                        <td>Проспект Просвещения</td>
+                        <td>Ул. Кустодиева, 11</td>
+                    </tr>
+                    <tr>
+                        <td>Формула</td>
+                        <td>Выборгская</td>
+                        <td>Пр. Луначарского, 11/1</td>
+                    </tr>
+                    <tr>
+                        <td>ФОК "Феникс"</td>
+                        <td>Проспект Просвещения</td>
+                        <td>Пр. Энгельса, 154</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+	<button id="scroll-top-btn" aria-label="Наверх">↑ Наверх</button>
+	<button id="scroll-bottom-btn" aria-label="Вниз">↓ Вниз</button>
+
+<script>
+  const btnTop = document.getElementById('scroll-top-btn');
+  const btnBottom = document.getElementById('scroll-bottom-btn');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      btnTop.style.display = 'block';
+      btnBottom.style.display = 'block';
+    } else {
+      btnTop.style.display = 'none';
+      btnBottom.style.display = 'none';
+    }
+  });
+
+  btnTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  btnBottom.addEventListener('click', () => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  });
+</script>
+    <footer>
+        <div class="marquee">
+            <span>Сиволап Анастасия ИП-23-3</span>
+			<p>&copy; 2026 Спортивные объекты Санкт-Петербурга</p>
+        </div>
+    </footer>
+</body>
+</html>

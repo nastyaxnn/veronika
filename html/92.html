@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практическая работа №9.2 - Движение персонажа</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: #0f0f23;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: none;
+        }
+
+        .info-panel {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .controls-info {
+            color: white;
+            font-size: 14px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls-info span {
+            background: rgba(0,0,0,0.5);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .stats {
+            color: #ffd700;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        button {
+            background: #e94560;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #ff6b6b;
+            transform: scale(1.02);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .title h1 {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .title p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="game-container">
+        <div class="title">
+            <h1>🎮 Движение персонажа</h1>
+            <p>Практическая работа №9.2</p>
+        </div>
+        
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+        
+        <div class="info-panel">
+            <div class="controls-info">
+                <span>⬆️ ⬇️ ⬅️ ➡️</span>
+                <span>W A S D</span>
+                <span>🎯 Клик мышью — телепорт</span>
+            </div>
+            <div class="stats">
+                📍 X: <span id="posX">0</span> | Y: <span id="posY">0</span>
+            </div>
+            <button id="resetBtn">🔄 Сброс позиции</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+
+    const PLAYER_SIZE = 40;
+
+    let player = {
+        x: canvas.width / 2 - PLAYER_SIZE / 2,
+        y: canvas.height / 2 - PLAYER_SIZE / 2,
+        width: PLAYER_SIZE,
+        height: PLAYER_SIZE
+    };
+    
+
+    const SPEED = 5;
+    
+    const keys = {
+        ArrowUp: false,
+        ArrowDown: false,
+        ArrowLeft: false,
+        ArrowRight: false,
+        KeyW: false,
+        KeyS: false,
+        KeyA: false,
+        KeyD: false
+    };
+    
+    const bounds = {
+        left: 0,
+        right: canvas.width - PLAYER_SIZE,
+        top: 0,
+        bottom: canvas.height - PLAYER_SIZE
+    };
+    
+    function updateCoordinatesDisplay() {
+        document.getElementById('posX').textContent = Math.round(player.x);
+        document.getElementById('posY').textContent = Math.round(player.y);
+    }
+    
+
+    function movePlayer() {
+        let dx = 0;
+        let dy = 0;
+        
+        // Стрелки
+        if (keys.ArrowUp) dy -= SPEED;
+        if (keys.ArrowDown) dy += SPEED;
+        if (keys.ArrowLeft) dx -= SPEED;
+        if (keys.ArrowRight) dx += SPEED;
+        
+        // WASD
+        if (keys.KeyW) dy -= SPEED;
+        if (keys.KeyS) dy += SPEED;
+        if (keys.KeyA) dx -= SPEED;
+        if (keys.KeyD) dx += SPEED;
+        
+
+        if (dx !== 0 && dy !== 0) {
+            dx = dx * 0.707;
+            dy = dy * 0.707;
+        }
+        
+        // Новая позиция с проверкой границ
+        let newX = player.x + dx;
+        let newY = player.y + dy;
+        
+        player.x = Math.max(bounds.left, Math.min(bounds.right, newX));
+        player.y = Math.max(bounds.top, Math.min(bounds.bottom, newY));
+        
+        updateCoordinatesDisplay();
+    }
+    
+
+    function teleportToMouse(event) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        let mouseX = (event.clientX - rect.left) * scaleX;
+        let mouseY = (event.clientY - rect.top) * scaleY;
+        
+
+        let newX = mouseX - PLAYER_SIZE / 2;
+        let newY = mouseY - PLAYER_SIZE / 2;
+        
+
+        player.x = Math.max(bounds.left, Math.min(bounds.right, newX));
+        player.y = Math.max(bounds.top, Math.min(bounds.bottom, newY));
+        
+        updateCoordinatesDisplay();
+    }
+    
+
+    function resetPosition() {
+        player.x = canvas.width / 2 - PLAYER_SIZE / 2;
+        player.y = canvas.height / 2 - PLAYER_SIZE / 2;
+        updateCoordinatesDisplay();
+    }
+    
+
+    function draw() {
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#1e3c72');
+        gradient.addColorStop(1, '#2a5298');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < canvas.width; i += 50) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
+            ctx.stroke();
+        }
+        
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 10;
+        
+        const playerGradient = ctx.createLinearGradient(player.x, player.y, player.x + PLAYER_SIZE, player.y + PLAYER_SIZE);
+        playerGradient.addColorStop(0, '#f7971e');
+        playerGradient.addColorStop(1, '#ffd200');
+        
+        const centerX = player.x + PLAYER_SIZE / 2;
+        const centerY = player.y + PLAYER_SIZE / 2;
+        const radius = PLAYER_SIZE / 2;
+        
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.fillStyle = playerGradient;
+        ctx.fill();
+        ctx.strokeStyle = '#e67e22';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.arc(centerX - 12, centerY - 8, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(centerX + 12, centerY - 8, 5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.fillStyle = '#2c3e50';
+        ctx.beginPath();
+        ctx.arc(centerX - 12, centerY - 8, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(centerX + 12, centerY - 8, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        let lookX = 0, lookY = 0;
+        if (keys.ArrowLeft || keys.KeyA) lookX = -2;
+        if (keys.ArrowRight || keys.KeyD) lookX = 2;
+        if (keys.ArrowUp || keys.KeyW) lookY = -2;
+        if (keys.ArrowDown || keys.KeyS) lookY = 2;
+        
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(centerX - 10 + lookX, centerY - 8 + lookY, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(centerX + 14 + lookX, centerY - 8 + lookY, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.arc(centerX, centerY + 5, 15, 0.1, Math.PI - 0.1);
+        ctx.strokeStyle = '#5d3a1a';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        ctx.fillStyle = 'rgba(255,100,100,0.4)';
+        ctx.beginPath();
+        ctx.ellipse(centerX - 18, centerY + 5, 5, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(centerX + 18, centerY + 5, 5, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.shadowBlur = 0;
+        
+        for (let i = 0; i < 3; i++) {
+            ctx.fillStyle = `rgba(255,255,255,${0.3 + Math.sin(Date.now() / 500 + i) * 0.1})`;
+            ctx.beginPath();
+            ctx.arc(centerX - 20 + i * 15, centerY - radius - 5, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // Текст-подсказка
+        ctx.font = "12px 'Segoe UI'";
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.shadowBlur = 0;
+        ctx.fillText("✨ Двигай меня (WASD/Стрелки)", 10, 30);
+        ctx.fillText("🖱️ Клик — телепорт", 10, 50);
+    }
+    
+
+    let animationId = null;
+    
+    function gameLoop() {
+        movePlayer();
+        draw();
+        animationId = requestAnimationFrame(gameLoop);
+    }
+    
+ 
+    function handleKeyDown(event) {
+        const code = event.code;
+        if (keys.hasOwnProperty(code)) {
+            keys[code] = true;
+            event.preventDefault();
+        }
+    }
+    
+    function handleKeyUp(event) {
+        const code = event.code;
+        if (keys.hasOwnProperty(code)) {
+            keys[code] = false;
+            event.preventDefault();
+        }
+    }
+    
+    function init() {
+        // Добавляем обработчики событий клавиатуры
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+        
+
+        canvas.addEventListener('click', teleportToMouse);
+        
+
+        const resetBtn = document.getElementById('resetBtn');
+        resetBtn.addEventListener('click', resetPosition);
+        
+        gameLoop();
+        
+
+        updateCoordinatesDisplay();
+        
+       
+        canvas.setAttribute('tabindex', '0');
+        canvas.style.outline = 'none';
+        canvas.addEventListener('click', () => canvas.focus());
+        
+        console.log('===== Практическая работа №9.2 =====');
+        console.log('Тема: Движение персонажа средствами JavaScript');
+        console.log('Реализовано:');
+        console.log('- Движение с помощью клавиш WASD и Стрелок');
+        console.log('- Телепорт по клику мыши');
+        console.log('- Плавная анимация через requestAnimationFrame');
+        console.log('- Границы холста (персонаж не выходит за пределы)');
+        console.log('- Визуальные эффекты: градиенты, тени, частицы');
+        console.log('- Кнопка сброса позиции');
+        console.log('=====================================');
+    }
+    
+    // Запускаем приложение
+    init();
+</script>
+</body>
+</html>

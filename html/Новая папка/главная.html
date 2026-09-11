@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СПОРТИВНЫЕ ОБЪЕКТЫ ПЕТЕРБУРГА</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>СПОРТИВНЫЕ ОБЪЕКТЫ ПЕТЕРБУРГА</h1>
+        <hr>
+    </header>
+
+    <nav>
+        <a href="главная.html">Главная</a>
+        <a href="стадионы.html">Стадионы</a>
+        <a href="бассейны.html">Бассейны</a>
+        <a href="фитнесцентры.html">Фитнес-центры</a>
+        <a href="катки.html">Катки</a>
+        <a href="анкета.html">Анкета</a>
+    </nav>
+
+    <main>
+        <section class="hero-images">
+            <div class="image-container">
+                <img src="imgкпр8/спортзал.jpg" alt="Спортзал" width="525" height="200">
+                <img src="imgкпр8/бассейн.jpg" alt="Бассейн" width="525" height="200">
+            </div>
+        </section>
+
+        <section class="intro">
+            <p>Найдите идеальное место для занятий спортом в Санкт-Петербурге! Наш сайт содержит информацию о стадионах, бассейнах, фитнес-центрах, катках.</p>
+        </section>
+
+        <section class="three-columns">
+            <div class="column">
+                <h2>🏃 Популярные виды спорта</h2>
+                <ul>
+                    <li>Футбол</li>
+                    <li>Плавание</li>
+                    <li>Хоккей</li>
+                    <li>Фитнес</li>
+                    <li>Баскетбол</li>
+                </ul>
+                <p>В Санкт-Петербурге более 500 спортивных объектов для занятия любым видом спорта!</p>
+            </div>
+            <div class="column">
+                <h2>⭐ Топ-3 лучших объектов</h2>
+                <ol>
+                    <li><strong>Газпром Арена</strong> - современный стадион мирового уровня</li>
+                    <li><strong>Спортивный комплекс "Юбилейный"</strong> - легендарная арена</li>
+                    <li><strong>Фитнес-центр "World Class"</strong> - премиум-класс</li>
+                </ol>
+                <p>Ежегодно эти объекты посещают более 1 миллиона человек.</p>
+            </div>
+            <div class="column">
+                <h2>💡 Советы для начинающих</h2>
+                <ul>
+                    <li>Начинайте с малого - 2-3 тренировки в неделю</li>
+                    <li>Выбирайте объект рядом с домом</li>
+                    <li>Покупайте абонемент для экономии</li>
+                    <li>Не забывайте про разминку</li>
+                </ul>
+                <p>Заполните анкету, чтобы мы помогли подобрать идеальное место!</p>
+            </div>
+        </section>
+
+        <section class="sync-animation">
+            <div class="sync-animation-container">
+                <div class="sync-object"></div>
+                <div class="sync-object"></div>
+            </div>
+        </section>
+    </main>
+
+    <button id="scroll-top-btn" aria-label="Наверх">↑ Наверх</button>
+    <button id="scroll-bottom-btn" aria-label="Вниз">↓ Вниз</button>
+
+    <script>
+        const btnTop = document.getElementById('scroll-top-btn');
+        const btnBottom = document.getElementById('scroll-bottom-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                btnTop.style.display = 'block';
+                btnBottom.style.display = 'block';
+            } else {
+                btnTop.style.display = 'none';
+                btnBottom.style.display = 'none';
+            }
+        });
+
+        btnTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        btnBottom.addEventListener('click', () => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    </script>
+
+    <footer>
+        <div class="marquee">
+            <span>Сиволап Анастасия ИП-23-3</span>
+            <p>&copy; 2026 Спортивные объекты Санкт-Петербурга</p>
+        </div>
+    </footer>
+</body>
+</html>

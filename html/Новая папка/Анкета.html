@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета: Спортивные объекты Петербурга</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Анкета: Ваши предпочтения в спортивных объектах Санкт-Петербурга</h1>
+    </header>
+
+    <nav>
+        <a href="главная.html">Главная</a>
+        <a href="стадионы.html">Стадионы</a>
+        <a href="бассейны.html">Бассейны</a>
+        <a href="фитнесцентры.html">Фитнес-центры</a>
+        <a href="катки.html">Катки</a>
+        <a href="анкета.html"class="active">Анкета</a>
+    </nav>
+
+    <main>
+        <section class="form-container">
+            <form id="sports-form">
+                <div class="form-group">
+                    <label for="name">Ваше имя:</label>
+                    <input type="text" id="name" name="name" required 
+                           pattern="[А-Яа-яЁё\s]{2,50}"
+                           title="Введите имя на русском языке (от 2 до 50 символов)">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Ваш e-mail:</label>
+                    <input type="email" id="email" name="email" required
+                           pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                           title="Введите корректный email адрес">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Ваш телефон:</label>
+                    <input type="tel" id="phone" name="phone"
+                           pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}"
+                           title="Формат: +7 (999) 999-99-99">
+                </div>
+
+                <div class="form-group">
+                    <label for="district">Ваш район проживания:</label>
+                    <select id="district" name="district" required>
+                        <option value="">Выберите район</option>
+                        <option value="admiral">Адмиралтейский</option>
+                        <option value="vasil">Василеостровский</option>
+                        <option value="vibor">Выборгский</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Какие типы спортивных объектов вас интересуют?</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="type[]" value="stadium"> Стадионы</label>
+                        <label><input type="checkbox" name="type[]" value="pool"> Бассейны</label>
+                        <label><input type="checkbox" name="type[]" value="gym"> Фитнес-центры</label>
+                        <label><input type="checkbox" name="type[]" value="rink"> Катки</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Как часто вы посещаете спортивные объекты?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="frequency" value="rarely" required> Редко</label>
+                        <label><input type="radio" name="frequency" value="sometimes"> Иногда</label>
+                        <label><input type="radio" name="frequency" value="often"> Часто</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Дополнительные комментарии:</label>
+                    <textarea id="comments" name="comments" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Отправить</button>
+                    <button type="reset" class="reset-btn">Очистить</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+<button id="scroll-top-btn" aria-label="Наверх">↑ Наверх</button>
+    <button id="scroll-bottom-btn" aria-label="Вниз">↓ Вниз</button>
+
+
+   <footer>
+        <div class="marquee">
+            <span>Сиволап Анастасия ИП-23-3</span>
+			<p>&copy; 2026 Спортивные объекты Санкт-Петербурга</p>
+        </div>
+    </footer>
+
+    <script>
+        const btnTop = document.getElementById('scroll-top-btn');
+        const btnBottom = document.getElementById('scroll-bottom-btn');
+
+        window.addEventListener('scroll', () => {
+            const show = window.scrollY > 300;
+            btnTop.style.display = show ? 'block' : 'none';
+            btnBottom.style.display = show ? 'block' : 'none';
+        });
+
+        btnTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        btnBottom.addEventListener('click', () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+
+        document.getElementById('sports-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const district = document.getElementById('district').value;
+            const frequency = document.querySelector('input[name="frequency"]:checked');
+			if (!name || !email || !district || !frequency) {
+                alert('❌ Пожалуйста, заполните все обязательные поля (отмечены *).');
+                return;
+            }
+            
+            alert('✅ Спасибо! Ваша анкета успешно отправлена.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
